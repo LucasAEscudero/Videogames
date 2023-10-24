@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false
     },
-    plataforms: {
+    platforms: {
       type: DataTypes.ARRAY(DataTypes.STRING), //verificar que datos va a contener
       allowNull: false,
     },
@@ -40,7 +40,22 @@ module.exports = (sequelize) => {
         min: 0,
         max: 5
       }
-    }
+    },
+    genresName: {
+      type: DataTypes.ARRAY(DataTypes.STRING), //verificar que datos va a contener
+      allowNull: false,
+    },
+    tags: {
+      type: DataTypes.ARRAY(DataTypes.STRING), //verificar que datos va a contener
+      allowNull: false,
+    },
+    metacritic: {
+      type: DataTypes.INTEGER,
+      validate: {
+        min: 0,
+        max: 100
+      }
+    },
   },
   {timestamps: false});
 };

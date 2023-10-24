@@ -1,9 +1,19 @@
 const axios = require('axios');
+const { Videogame } = require('../../db');
 
-const obtVidDetails = async (id) => {
-    const response = await axios(`https://api.rawg.io/api/games/${id}?key=${process.env.API_KEY}`)
+const obtVideogameDetails = async (id) => {
 
-    return response.data;
+    if(Number.isInteger(id)){
+        const response = await axios(`https://api.rawg.io/api/games/${id}?key=${process.env.API_KEY}`)
+
+        return response.data;
+    }
+    else{
+        const videogame = await Videogame.findByPk(id);
+
+        return videogame;
+    }
+    
 }
 
-module.exports = obtVidDetails;
+module.exports = obtVideogameDetails;

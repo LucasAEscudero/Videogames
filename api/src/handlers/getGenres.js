@@ -1,5 +1,5 @@
-const obtainGenres = require('../../controllers/genres/obtainGenres');
-const {Genres} = require('../../db');
+const obtainGenres = require('../controllers/genres/obtainGenres');
+const {Genres} = require('../db');
 
 const genresBDLoad = async (req, res) => {
     try{
