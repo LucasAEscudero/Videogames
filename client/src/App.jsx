@@ -1,27 +1,25 @@
-import { useState } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+//react
+import { useState, useEffect } from 'react'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+
+//components
+import Home from './components/home/Home'
+import Landing from './components/landing/Landing'
+import Nav from './components/nav/Nav'
+
+//styles
 import './App.css'
 
 function App() {
-  useNavigate('/home')
-  const handleEntry = () => {
-    useNavigate('/home');
-  }
+
 
   return (
-    <div className="App">
-      <div>
-        <h1>Henry Videogames</h1>
-      </div>
-      <div onClick={handleEntry}>
-        <button>Entry</button>
-      </div>
-
+    <div>
+      { useLocation().pathname !== '/' && <Nav /> }
       <Routes>
-        <Route path='/'/>
-        <Route path='/home'/>
-        <Route path='/detail/:id'/>
-        <Route path='/landing'/>
+        <Route path='/' element={<Landing />}/>
+        <Route path='/home' element={<Home />}/>
+        <Route path='*' />
       </Routes>
     </div>
   )
