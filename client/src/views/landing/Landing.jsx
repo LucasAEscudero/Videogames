@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
-function Landing() {
+
+function Landing({ handleEntry }) {
 
     return(
         <div>

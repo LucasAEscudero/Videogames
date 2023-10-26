@@ -3,10 +3,12 @@ const obtainVideogameByName = require('../controllers/videogames/obtainVidByName
 const obtainVideogameDetails = require('../controllers/videogames/obtainVidDet');
 
 const getVideogames = async (req, res) => {
-    try{
-        const data = await obtainVideogames();
+    const { page } = req.query
 
-        return res.status(200).json(data.results);
+    try{
+        const videogames = await obtainVideogames(page);
+
+        return res.status(200).json(videogames);
     }
     catch(error){
         return res.status(500).json({ error: error.message });

@@ -1,0 +1,12 @@
+.videogame{
+    border-radius: 1em;
+    border: 1px solid hsla(0,0%,100%,.1);
+    margin: 1em;
+    background-color: hsla(0,0%,100%,.1);
+}
+
+.vidImg > img{
+    width: 100%;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+}
