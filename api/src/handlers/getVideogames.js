@@ -3,10 +3,10 @@ const obtainVideogameByName = require('../controllers/videogames/obtainVidByName
 const obtainVideogameDetails = require('../controllers/videogames/obtainVidDet');
 
 const getVideogames = async (req, res) => {
-    const { page } = req.query
+    const { maxPage } = req.query
 
     try{
-        const videogames = await obtainVideogames(page);
+        const videogames = await obtainVideogames(maxPage);
 
         return res.status(200).json(videogames);
     }
@@ -17,9 +17,9 @@ const getVideogames = async (req, res) => {
 
 const getVideogameByName = async (req, res) => {
     try{
-        const { name, search } = req.query;
+        const { name, maxPage } = req.query;
 
-        const videogames = await obtainVideogameByName(name, search);
+        const videogames = await obtainVideogameByName(name, maxPage);
         
         if(!videogames.length) return  res.status(200).send('The desired game does not exist');
 

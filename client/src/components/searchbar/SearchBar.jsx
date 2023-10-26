@@ -1,20 +1,30 @@
 import { useState } from "react"
 
-function SearchBar() {
-    const [input, setInput] = useState();
+import { useDispatch } from "react-redux";
+import { renderVideogames, reset, searchVideogamesName } from "../../redux/actions/actions";
+
+function SearchBar({ maxApiPage, setPage }) {
+    const [input, setInput] = useState("");
+    const dispatch = useDispatch();
 
     const handleInput = (event) => {
-
+        setInput(event.target.value);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        
+        await dispatch(searchVideogamesName(input, maxApiPage));
+        dispatch(renderVideogames(1));
+        setPage(1);
         
     }
 
     return(
         <div>
-            <input type="text" value={input} />
-            <button onClick={handleSubmit} >Search</button>
+            <input type="text" value={input} onChange={handleInput}/>
+            <button onClick={handleSubmit}>Search</button>
         </div>
     )
 }
+
+export default SearchBar

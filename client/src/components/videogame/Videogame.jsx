@@ -11,6 +11,7 @@ function Videogame({ id, name, rating, released, image, platforms, genres, tags 
             <div className={styles.vidImg}><img src={image} alt={name} /></div>
             <div className={styles.vidInfo}>
                 <Link to={`/detail/${id}`}><h2>{name}</h2></Link>
+                <h2>{id}</h2>
                 <h2>{rating}</h2>
                 <h2>{released}</h2>
                 {

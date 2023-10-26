@@ -1,11 +1,11 @@
-import { GET_VIDEOGAMES, RENDER_VIDEOGAMES } from './action-types';
+import { GET_VIDEOGAMES, NAME_VIDEOGAMES, RENDER_VIDEOGAMES, RESET } from './action-types';
 
 import axios from 'axios';
 
-export const getVideogames = (page) => {
+export const getVideogames = (maxPage) => {
     return async (dispatch) => {
         try{
-            const { data } = await axios(`http://localhost:3001/videogames?page=${page}`);
+            const { data } = await axios(`http://localhost:3001/videogames?maxPage=${maxPage}`);
 
             return dispatch({
                 type: GET_VIDEOGAMES,
@@ -27,3 +27,26 @@ export const renderVideogames = (page) => {
     }
 }
 
+export const searchVideogamesName = (name, maxPage) => {
+    return async (dispatch) => {
+        try{
+            const { data } = await axios(`http://localhost:3001/videogames/name?name=${name}&maxPage=${maxPage}`);
+
+            return dispatch({
+                type: NAME_VIDEOGAMES,
+                payload: data 
+            }); 
+        }
+        catch(error){
+            throw Error(error.message)
+        }
+    }
+}
+
+export const reset = () => {
+    return (dispatch) => {
+        return dispatch({
+            type: RESET
+        })
+    }
+}

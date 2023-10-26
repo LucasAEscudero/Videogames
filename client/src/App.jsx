@@ -24,39 +24,75 @@ import './App.css'
 function App() {
   //hooks
   const dispatch = useDispatch();
-  const videogames = useSelector(state => state.videogames);
-  
   const [page, setPage] = useState(1)
-  const [maxPage, setMaxPage] = useState(2);
+  const maxApiPage = 5;
+
+  const videogames = useSelector(state => state.videogames);
+  // const renderVid = videogames.slice(((page-1)*15), ((page-1)*15) + 15);
+  // const renderVid = useSelector(state => state.renderVideogames)
+  const maxPage = useSelector(state => state.maxPage);
+  
+  //handlerOptions
+  const [options, setOptions] = useState({
+    genres: "",
+    origin: "API+BD",
+    name: "",
+    rating: "",
+    change: "",
+    cChanges: 0
+  });
 
   //load first videogames - home
   useEffect(() => {
     (async () => {
-      await dispatch(getVideogames(page));
+      await dispatch(getVideogames(maxApiPage));
       await dispatch(renderVideogames(page));
-      await dispatch(getVideogames(maxPage));
     })();
   }, [])
 
   //pages handlers - home
   const handlePages = (event) => {
     if(event.target.value === 'previous' && page > 1) setPage(page - 1);
-    if(event.target.value === 'next') setPage(page + 1);
+    if(event.target.value === 'next' && page < maxPage + 1) setPage(page + 1);
   }
 
   //handler videogames load by pages - home
   useEffect(() => {
-    if(page === maxPage){
-      setMaxPage(maxPage + 1);
-      dispatch(getVideogames(maxPage));
-    }
-
     dispatch(renderVideogames(page)); 
   }, [page])
 
+
+  //handler source videogames (API / BD) - home
+  const handlerOptions = (event) => {
+    setOptions({
+      ...options,
+      [event.target.name]: event.target.value,
+      change: event.target.name,
+      cChanges: options.cChanges + 1
+    });
+  }
+
+  // console.log(options)
+
+  useEffect(() => {
+    // dispatch(renderVideogames(page));
+    switch(options.change){
+      case "genres": return console.log('genres');
+      case "origin": return console.log('origin');
+      case "name": return console.log('name');
+      case "rating": return console.log('order');
+    }
+
+  }, [options.cChanges]);
+
+
+  //SEARCH - home
+  console.log(options)
+
+
   return(
     <div>
-      { useLocation().pathname !== '/' && <Nav /> }
+      { useLocation().pathname !== '/' && <Nav maxApiPage={maxApiPage} setPage={setPage} /> }
       <Routes>
         <Route path='/' element={<Landing />}/>
 
@@ -65,6 +101,7 @@ function App() {
           videogames={videogames} 
           handlePages={handlePages} 
           page={page}
+          handlerOptions={handlerOptions}
         />
         }/>
         <Route path='/detail/:id' element={<Detail />}/>
