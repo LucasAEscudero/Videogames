@@ -7,7 +7,8 @@ import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { 
   getVideogames,
-  getGenres, 
+  getGenres,
+  getPlatforms,
   genresFilter, 
   nameOrder, 
   originFilter, 
@@ -23,11 +24,12 @@ import Detail from './views/detail/Detail'
 import Landing from './views/landing/Landing'
 import Home from './views/home/Home'
 
-import Error from './views/Error/Error'
+import Error from './views/error/Error'
 
 
 //styles
 import './App.css'
+import Create from './views/create/Create'
 
 function App() {
   //hooks
@@ -38,6 +40,7 @@ function App() {
   const videogames = useSelector(state => state.videogames);
   const genres = useSelector(state => state.allGenres);
   const maxPage = useSelector(state => state.maxPage);
+  const platforms = useSelector(state => state.platforms);
   // const renderVid = videogames.slice(((page-1)*15), ((page-1)*15) + 15);
   // const renderVid = useSelector(state => state.renderVideogames)
   
@@ -57,6 +60,7 @@ function App() {
       await dispatch(getVideogames(maxApiPage));
       await dispatch(renderVideogames(page));
       await dispatch(getGenres());
+      await dispatch(getPlatforms());
     })();
   }, [])
 
@@ -124,6 +128,7 @@ function App() {
         />
         }/>
         <Route path='/detail/:id' element={<Detail />}/>
+        <Route path='/create' element={<Create genres={genres} platforms={platforms}/>}/>
 
         <Route path='*' element={<Error />}/>
       </Routes>

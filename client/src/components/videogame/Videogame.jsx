@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import styles from './Videogame.module.css'
 
 function Videogame({ id, name, rating, released, image, platforms, genres, tags }) {
-    console.log(genres)
-    console.log(tags)
+
     return(
         <div className={styles.videogame}>
             <div className={styles.vidImg}>

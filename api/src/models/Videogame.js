@@ -24,8 +24,9 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.STRING,
       // allowNull: false,
+      // defaultValue: '../utils/defaultImage.jpg',  subirla a git (si o si una url)
       validate: {
-        isUrl: true //no funciona
+        isUrl: true 
       }
     },
     released: {
@@ -47,7 +48,7 @@ module.exports = (sequelize) => {
     },
     tags: {
       type: DataTypes.ARRAY(DataTypes.STRING), //verificar que datos va a contener
-      allowNull: false,
+      // allowNull: false,
     },
     origin: {
       type: DataTypes.STRING,

@@ -16,13 +16,12 @@
 .genres,
 .tags{
     border: 1px solid #000;
-    display: flex;
 }
 
 .info{
     margin: 1em;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 2fr 1fr;
     border: 1px solid #000;
 }
 

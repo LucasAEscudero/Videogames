@@ -2,6 +2,7 @@
 import { 
     GET_VIDEOGAMES,
     GET_GENRES,
+    GET_PLATFORMS,
     RENDER_VIDEOGAMES, 
     NAME_VIDEOGAMES, 
     GENRES_VIDEOGAMES,
@@ -23,7 +24,8 @@ const initialState = {
     maxPage: 0,
     bdVideogames: [],
     apiVideogames: [],
-    allGenres: []
+    allGenres: [],
+    platforms: []
 };
 
 function reducer(state = initialState, action) {
@@ -44,6 +46,13 @@ function reducer(state = initialState, action) {
                 ...state,
                 allGenres: [...action.payload]
             }
+
+        case GET_PLATFORMS:
+            return {
+                ...state,
+                platforms: [...action.payload]
+            }
+
             //render 15 videogames
         case RENDER_VIDEOGAMES:
             return {
@@ -51,6 +60,7 @@ function reducer(state = initialState, action) {
                 videogames: [...state.allVideogames].slice(action.payload, action.payload + 15),
                 maxPage: Math.floor(state.allVideogames.length / 15)
             };
+
             //load videogames with the name input
         case NAME_VIDEOGAMES:
             return {
@@ -61,6 +71,7 @@ function reducer(state = initialState, action) {
                 apiVideogames: [...action.payload].filter(game => game.origin === 'API')
                 // maxPage: Math.floor(state.allVideogames.length / 15)
             };
+
         case GENRES_VIDEOGAMES: 
             return {
                 ...state,

@@ -8,6 +8,11 @@ import styles from './Detail.module.css';
 function Detail() {
     const { id } = useParams();
     const [videogame, setVideogame] = useState({});
+    const description = videogame.description?.split('.')
+   
+    description?.forEach((sentence, i) => {
+        if(sentence === '') description.splice(i, 1);
+    })
 
     useEffect(() => {
         ( async () => {
@@ -24,6 +29,10 @@ function Detail() {
 
     return(
         <div className={styles.videogameDetail}>
+            <h2>{videogame.name}</h2>
+            <h2>{videogame.released}</h2>
+            <h2>{videogame.rating}</h2>
+            
             <div className={styles.videogameImg}>
                 <img src={videogame.image} alt={videogame.name} />
             </div>
@@ -32,34 +41,38 @@ function Detail() {
                 <div>
                     <div>
                         <h2>ID:{videogame.id}</h2>
-                        <h2>{videogame.name}</h2>
-                        <h2>{videogame.rating}</h2>
-                        <h2>{videogame.released}</h2>
+                        {/* <h2>{videogame.rating}</h2>
+                        <h2>{videogame.released}</h2> */}
+                        {
+                            description?.map((sentence, i) => {
+                                return <p key={i}>{`${sentence}.`}</p>
+                            })
+                        }
                     </div>
                 </div>
 
                 <div className={styles.arrays}>
                     <div className={styles.platforms}>
                         <label htmlFor="">Platforms</label>
-                        <h2>
+                        <h3>
                             {
                                 videogame.platforms?.map((platform, i) => {
                                     if(videogame.platforms?.length - 1 === i) return platform;
                                     return `${platform}, `;
                                 })
                             }
-                        </h2>
+                        </h3>
                     </div>
                     <div className={styles.genres}>
                         <label htmlFor="">Genres</label>
-                        <h2>
+                        <h3>
                             {
                                 videogame.genres?.map((genres, i) => {
                                     if(videogame.genres?.length - 1 === i) return genres;
                                     return `${genres}, `;
                                 })
                             }
-                        </h2>
+                        </h3>
                     </div>
                     <div className={styles.tags}>
                         <label htmlFor="">Tags</label>
