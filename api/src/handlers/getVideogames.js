@@ -35,7 +35,7 @@ const getVideogameDetails = async (req, res) => {
         const { id } = req.params;
         const data = await obtainVideogameDetails(id);
 
-        return res.status(200).json(data);
+        return res.status(200).json(data); //this return a object, done
     }
     catch(error){
         return res.status(500).json({ error: error.message });

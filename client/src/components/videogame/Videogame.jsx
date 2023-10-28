@@ -4,21 +4,25 @@ import { Link } from "react-router-dom";
 import styles from './Videogame.module.css'
 
 function Videogame({ id, name, rating, released, image, platforms, genres, tags }) {
-
-    
+    console.log(genres)
+    console.log(tags)
     return(
         <div className={styles.videogame}>
-            <div className={styles.vidImg}><img src={image} alt={name} /></div>
+            <div className={styles.vidImg}>
+                <img src={image} alt={name} />
+            </div>
+            
             <div className={styles.vidInfo}>
                 <Link to={`/detail/${id}`}><h2>{name}</h2></Link>
                 <h2>{id}</h2>
                 <h2>{rating}</h2>
                 <h2>{released}</h2>
                 {
-                    genres.map((genre, i) => {
-                        if(i < 2) return <h5 key={genre}>{genre}</h5>
+                    genres?.map(genre => {
+                        return <h5 key={genre}>{genre}</h5>
                     })
                 }
+                
             </div>
         </div>
     )

@@ -28,7 +28,7 @@ module.exports = (sequelize) => {
         isUrl: true //no funciona
       }
     },
-    launch_date: {
+    released: {
       type: DataTypes.STRING,
       validate: {
         isDate: true //format: "2000-01-29" / mas de dos digitos "20+"
@@ -49,13 +49,10 @@ module.exports = (sequelize) => {
       type: DataTypes.ARRAY(DataTypes.STRING), //verificar que datos va a contener
       allowNull: false,
     },
-    metacritic: {
-      type: DataTypes.INTEGER,
-      validate: {
-        min: 0,
-        max: 100
-      }
-    },
+    origin: {
+      type: DataTypes.STRING,
+      defaultValue: 'BD'
+    }
   },
   {timestamps: false});
 };

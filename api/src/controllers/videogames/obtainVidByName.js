@@ -6,7 +6,7 @@ const obtainVideogameByName = async (name, maxPage) => {
     let videogames = [];
     let apiVideogames = [];
 
-    let videogame = await Videogame.findAll({
+    let bdVideogame = await Videogame.findAll({
         where: {
             name: {
                 [Op.iLike]: `%${name}%`
@@ -14,23 +14,23 @@ const obtainVideogameByName = async (name, maxPage) => {
         }
     });
 
-    videogame.forEach(game => {
+    bdVideogame.forEach(game => {
         videogames.push({
             id: game.id,
             name: game.name,
 
             rating: game.rating,
-            metacritic: game.metracritic, //puntaje del juego
-            released: game.released, //cuando fue lanzado
-            image: game.background_image,
+            released: game.released,
+            image: game.image,
 
             platforms: game.platforms?.map(platform => platform),
-            genres: game.genres?.map(genre => genre),
-            tags: game.tags?.map(tag => tag)
+            genres: game.genresName?.map(genre => genre),
+            tags: game.tags?.map(tag => tag),
+            origin: game.origin
         });      
     });
 
-    if(!maxPage) return videogames
+    if(!maxPage) return videogames;
 
     for(let i = 0; i < maxPage; i++){
         apiVideogames = await obtainApiVideogamesByName(name, i + 1)
@@ -41,27 +41,22 @@ const obtainVideogameByName = async (name, maxPage) => {
                 name: game.name,
 
                 rating: game.rating,
-                metacritic: game.metracritic, //puntaje del juego
                 released: game.released, //cuando fue lanzado
                 image: game.background_image,
 
-                platforms: game.platforms?.map(platform => {
-                    return platform.platform?.name;
-                }),
-                genres: game.genres?.map(gender => {
-                    return gender.name;
-                }),
+                platforms: game.platforms?.map(platform => platform.platform?.name),
+                genres: game.genres?.map(gender => gender.name),
                 tags: game.tags?.map(tag => {
                     if(tag.language === 'eng') return tag.name;
-                })
-                // description: game.description no existe
+                }),
+                origin: 'API'
             });
         });
     }
 
-    videogames.forEach(game => {
-        game.tags = game.tags.filter(tag => tag);
-    });
+    // videogames.forEach(game => {
+    //     game.tags = game.tags.filter(tag => tag);
+    // });
     
     return videogames;
 }

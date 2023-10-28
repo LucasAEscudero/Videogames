@@ -3,60 +3,49 @@ const { Videogame } = require('../../db');
  
 const obtainVideogames = async (maxPage) => {
     let videogames = [];
-    let auxAPIVideogames = [];
+    let apiVideogames = [];
 
-    const auxDBVideogames = await Videogame.findAll();
+    const dbVideogames = await Videogame.findAll();
 
-    auxDBVideogames.forEach(game => {
+    dbVideogames.forEach(game => {
         videogames.push({
             id: game.id,
             name: game.name,
 
             rating: game.rating,
-            metacritic: game.metracritic, //puntaje del juego
-            released: game.released, //cuando fue lanzado
-            image: game.background_image,
+            released: game.released,
+            image: game.image,
 
             platforms: game.platforms?.map(platform => platform),
-            genres: game.genres?.map(genre => genre),
-            tags: game.tags?.map(tag => tag)
+            genres: game.genresName?.map(genre => genre),
+            tags: game.tags?.map(tag => tag),
+            origin: game.origin
         })
     });
 
     if(!maxPage) return videogames;
 
     for(let i = 0; i < maxPage; i++){
-       auxAPIVideogames = await obtainApiVideogames(i + 1); //fn que llama a cada pag de la api
+       apiVideogames = await obtainApiVideogames(i + 1); //fn que llama a cada pag de la api
 
-       auxAPIVideogames.forEach(videogame => {
+       apiVideogames.forEach(game => {
             videogames.push({
-                id: videogame.id,
-                name: videogame.name,
+                id: game.id,
+                name: game.name,
 
-                rating: videogame.rating,
-                metacritic: videogame.metracritic, //puntaje del juego
-                released: videogame.released, //cuando fue lanzado
-                image: videogame.background_image,
+                rating: game.rating,
+                released: game.released, //cuando fue lanzado
+                image: game.background_image,
 
-                platforms: videogame.platforms?.map(platform => {
-                    return platform.platform?.name;
-                }),
-                genres: videogame.genres?.map(gender => {
-                    return gender.name;
-                }),
-                tags: videogame.tags?.map(tag => {
+                platforms: game.platforms?.map(platform => platform.platform?.name),
+                genres: game.genres?.map(gender => gender.name),
+                tags: game.tags?.map(tag => {
                     if(tag.language === 'eng') return tag.name;
-                })
+                }),
+                origin: 'API'
             });
         });
     }
-
-    // videogames.forEach(game => {
-    //     console.log(game)
-    //     game.tags = [...game.tags].filter(tag => {
-    //         return tag != null;
-    //     });
-    // });
     
     return videogames;
 }

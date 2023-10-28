@@ -4,15 +4,14 @@ const { Op } = require("sequelize");
 const postVideogames = async (req, res) => {
     try{
         const {
-            name, description, platforms, image, launchDate, rating, genresName, tags, metacritic 
+            name, description, platforms, image, released, rating, genresName, tags
         } = req.body;
 
         if(
             !name || !description || 
-            !platforms.length || !image || 
-            !launchDate || !rating || 
-            !genresName.length || !tags.length ||
-            !metacritic
+            !released || !rating || !image || 
+            !platforms.length || 
+            !genresName.length || !tags.length
         ){
             return res.status(404).send('Default info');
         }
@@ -21,12 +20,11 @@ const postVideogames = async (req, res) => {
             name: name,
             description: description,
             rating: rating,
-            metacritic: metacritic,
-            launch_date: launchDate,
+            released: released,
             image: image,
             platforms: platforms,
-            tags: tags,
-            genresName: genresName
+            genresName: genresName,
+            tags: tags
         });
 
         const vidGenres = await searchGenderId(genresName);

@@ -1,0 +1,28 @@
+.videogameDetail{
+    border-radius: 1em;
+    border: 1px solid hsla(0,0%,100%,.1);
+    margin: 1em;
+    background-color: hsla(0,0%,100%,.1);
+    /* display: flex; */
+}
+
+.videogameImg > img{
+    width: 600px;
+    margin-top: 1em;
+    border: 1px solid #000;
+}
+
+.platforms,
+.genres,
+.tags{
+    border: 1px solid #000;
+    display: flex;
+}
+
+.info{
+    margin: 1em;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    border: 1px solid #000;
+}
+

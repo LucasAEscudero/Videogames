@@ -5,7 +5,15 @@ import axios from 'axios'
 
 //redux
 import { useSelector, useDispatch } from 'react-redux'
-import { getVideogames, renderVideogames } from './redux/actions/actions'
+import { 
+  getVideogames,
+  getGenres, 
+  genresFilter, 
+  nameOrder, 
+  originFilter, 
+  ratingOrder, 
+  renderVideogames 
+} from './redux/actions/actions'
 
 //components
 
@@ -28,9 +36,10 @@ function App() {
   const maxApiPage = 5;
 
   const videogames = useSelector(state => state.videogames);
+  const genres = useSelector(state => state.allGenres);
+  const maxPage = useSelector(state => state.maxPage);
   // const renderVid = videogames.slice(((page-1)*15), ((page-1)*15) + 15);
   // const renderVid = useSelector(state => state.renderVideogames)
-  const maxPage = useSelector(state => state.maxPage);
   
   //handlerOptions
   const [options, setOptions] = useState({
@@ -47,6 +56,7 @@ function App() {
     (async () => {
       await dispatch(getVideogames(maxApiPage));
       await dispatch(renderVideogames(page));
+      await dispatch(getGenres());
     })();
   }, [])
 
@@ -61,7 +71,6 @@ function App() {
     dispatch(renderVideogames(page)); 
   }, [page])
 
-
   //handler source videogames (API / BD) - home
   const handlerOptions = (event) => {
     setOptions({
@@ -72,23 +81,32 @@ function App() {
     });
   }
 
-  // console.log(options)
-
   useEffect(() => {
     // dispatch(renderVideogames(page));
     switch(options.change){
-      case "genres": return console.log('genres');
-      case "origin": return console.log('origin');
-      case "name": return console.log('name');
-      case "rating": return console.log('order');
+      case "genres": 
+        dispatch(genresFilter(options.genres));
+        dispatch(renderVideogames(1));
+        setPage(1);
+        break;
+      case "origin":
+        dispatch(originFilter(options.origin));
+        dispatch(renderVideogames(1));
+        setPage(1);
+        break;
+      case "name": 
+        dispatch(nameOrder(options.name));
+        dispatch(renderVideogames(1));
+        setPage(1);
+        break;
+      case "rating": 
+        dispatch(ratingOrder(options.rating));
+        dispatch(renderVideogames(1));
+        setPage(1);
+        break;
     }
 
   }, [options.cChanges]);
-
-
-  //SEARCH - home
-  console.log(options)
-
 
   return(
     <div>
@@ -102,6 +120,7 @@ function App() {
           handlePages={handlePages} 
           page={page}
           handlerOptions={handlerOptions}
+          genres={genres}
         />
         }/>
         <Route path='/detail/:id' element={<Detail />}/>

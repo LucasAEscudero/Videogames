@@ -4,39 +4,34 @@ import axios from 'axios'
 
 //redux
 import { useSelector, useDispatch } from 'react-redux'
-import { getVideogames, renderVideogames } from '../../redux/actions/actions'
+import { getVideogames, renderVideogames, reset } from '../../redux/actions/actions'
 
 //components
 import Videogame from '../../components/videogame/Videogame';
+import Options from '../../components/options/Options';
 
 //styles
 import styles from './Home.module.css'
 
-function Home({ videogames, handlePages, page, handlerOptions }) {
-    
+function Home({ videogames, handlePages, page, handlerOptions, genres }) {
+    const dispatch = useDispatch();
+
+    const resetFilters = () => {        
+        dispatch(reset());
+        dispatch(renderVideogames(1))
+    }
+//genres para las options - generar componentes
     return(
         <div>
-            <select name="genres" onChange={handlerOptions}>
-                <option value="">gen1</option>
-                <option value="">gen2</option>
-                <option value="">gen3</option>
-                <option value="">gen4</option>
-            </select>
-            <select name="origin" onChange={handlerOptions}>
-                <option value="API+BD">API+BD</option>
-                <option value="API">API</option>
-                <option value="BD">BD</option>
-            </select>
+            <label htmlFor="">Type: </label>
+            <Options name="genres" values={genres} onChange={handlerOptions}/>
+            <Options name="origin" values={['API + BD', 'API', 'BD']} onChange={handlerOptions}/>
 
             <label htmlFor="">Order: </label>
-            <select name="name" onChange={handlerOptions}>
-                <option value="Ascendent">A-Z</option>
-                <option value="Descendent">Z-A</option>
-            </select>
-            <select name="rating" onChange={handlerOptions}>
-                <option value="minor">Minor</option>
-                <option value="major">Major</option>
-            </select>
+            <Options name="name" values={['Ascendent', 'Descendent']} onChange={handlerOptions}/>
+            <Options name="rating" values={['Minor', 'Major']} onChange={handlerOptions}/>
+
+            <button onClick={resetFilters}>Reset</button>
             
             <div className={styles.videogames}>
                 {
@@ -49,7 +44,8 @@ function Home({ videogames, handlePages, page, handlerOptions }) {
                             released={videogame.released}
                             image={videogame.image}
                             platforms={videogame.platforms}
-                            genres={videogame.tags}
+                            genres={videogame.genres}
+                            tags={videogame.tags}
                         />
                     })
                 }
