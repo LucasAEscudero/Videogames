@@ -30,11 +30,10 @@ const obtVideogameDetails = async (id) => {
             name: data.name,
             image: data.image,
             rating: data.rating,
-            released: data.launch_date,
+            released: data.released,
             description: data.description,
             platforms: [...data.platforms],
             genres: [...data.genresName],
-            tags: [...data.tags],
             origin: 'API'
         }
 

@@ -9,7 +9,7 @@
 .videogame:hover{
     width: 105%;
     height: 105%;
-    z-index: 100;
+    z-index: 80;
     box-shadow: 0 0 15px #595fd5;
 }
 

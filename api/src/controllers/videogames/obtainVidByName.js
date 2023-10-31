@@ -25,7 +25,6 @@ const obtainVideogameByName = async (name, maxPage) => {
 
             platforms: game.platforms?.map(platform => platform),
             genres: game.genresName?.map(genre => genre),
-            tags: game.tags?.map(tag => tag),
             origin: game.origin
         });      
     });

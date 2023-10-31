@@ -4,14 +4,14 @@ const { Op } = require("sequelize");
 const postVideogames = async (req, res) => {
     try{
         const {
-            name, description, platforms, image, released, rating, genresName, tags
+            name, description, platforms, image, released, rating, genresName
         } = req.body;
 
         if(
             !name || !description || 
             !released || !rating || !image || 
             !platforms.length || 
-            !genresName.length || !tags.length
+            !genresName.length
         ){
             return res.status(404).send('Default info');
         }
@@ -23,8 +23,7 @@ const postVideogames = async (req, res) => {
             released: released,
             image: image,
             platforms: platforms,
-            genresName: genresName,
-            tags: tags
+            genresName: genresName
         });
 
         const vidGenres = await searchGenderId(genresName);

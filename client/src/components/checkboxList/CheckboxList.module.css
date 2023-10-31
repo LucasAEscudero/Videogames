@@ -3,15 +3,16 @@
     font-weight: 100;
 }
 
-.checkbox{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.list{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    justify-items: start;
 }
 
 .checkbox > label,
 .checkbox > p{
-    align-self: flex-start;
+    display: block;
+    text-align: start;
     margin: 0;
 }
 

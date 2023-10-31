@@ -12,7 +12,6 @@ function validations(input) {
     
 
     //description validation
-    
     if(input.description.length < 2) 
     errors.description = '*Must contain more than two characters';
     
@@ -23,11 +22,12 @@ function validations(input) {
 
 
     //released date validation
-
+    if(input.released === '') errors.released = '*Must contain a released date';
 
     //rating validation
-    if(input.rating < 0) errors.rating = '*Must be more than 0';
-    if(input.rating > 5) errors.rating = '*Must be less than 5';
+    if(input.rating === '') errors.rating = '*Must contain a rating (number)';
+    if(Number(input.rating) < 0) errors.rating = '*Must be more than 0';
+    if(Number(input.rating) > 5) errors.rating = '*Must be less than 5';
 
 
     //genres validation

@@ -16,7 +16,7 @@ function Create({ genres, platforms }) {
         description: '',
         platforms: {},
         released: '',
-        rating: 0,
+        rating: '',
         genres: {}
     });
 
@@ -41,6 +41,7 @@ function Create({ genres, platforms }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        
         const toPost = { //create the model to post
             name: input.name,
             image: input.image,
@@ -62,8 +63,21 @@ function Create({ genres, platforms }) {
         //post request
         try{
             await axios.post(`http://localhost:3001/videogames`, toPost);
+
+            setInput({
+                name: '',
+                image: '',
+                description: '',
+                platforms: {},
+                released: '',
+                rating: '',
+                genres: {}
+            });
+
+            window.alert("The video game was successfully created")
         }
         catch(error){
+            window.alert("I can't create the video game, check that the fields are with the correct information");
             throw Error(error.message);
         }
     }
@@ -75,8 +89,9 @@ function Create({ genres, platforms }) {
     // console.log(errors)
     // console.log(input) - modularizar inputs
     return(
-        <div>
-            <form className={styles.form}>
+        <div className={styles.form}>
+            <h2>Create your videogame</h2>
+            <form>
                 {/* name input */}
                 <Inputs
                     name='name'
@@ -130,12 +145,11 @@ function Create({ genres, platforms }) {
                 {/* rating input */}
                 <Inputs
                     name='rating'
-                    type='number'
+                    type='text'
                     input={input}
                     handleChange={handleChange}
                     placeholder='The game rating...'
-                    errors={errors}
-                    step={0.1}
+                    errors={errors}   
                 />
 
                 {/* genres checkbox */}
@@ -149,12 +163,12 @@ function Create({ genres, platforms }) {
 
                 <button
                     type="submit"
-                    disabled={
-                        !input.name || !input.image || !input.description || !input.platforms
-                        || !input.released || !input.rating || !input.genres || errors.name 
-                        || errors.image || errors.description || errors.platforms || 
-                        errors.released || errors.rating || errors.genres
-                    }
+                    // disabled={
+                    //     !input.name || !input.image || !input.description || !input.platforms
+                    //     || !input.released || !input.rating || !input.genres || errors.name 
+                    //     || errors.image || errors.description || errors.platforms || 
+                    //     errors.released || errors.rating || errors.genres
+                    // }
                     onClick={handleSubmit}
                 >
                     Submit

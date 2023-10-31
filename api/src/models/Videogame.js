@@ -23,8 +23,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
-      // allowNull: false,
-      // defaultValue: '../utils/defaultImage.jpg',  subirla a git (si o si una url)
+      allowNull: false,
       validate: {
         isUrl: true 
       }
@@ -37,6 +36,7 @@ module.exports = (sequelize) => {
     },
     rating: {
       type: DataTypes.FLOAT,
+      allowNull: false,
       validate: {
         min: 0,
         max: 5
@@ -45,10 +45,6 @@ module.exports = (sequelize) => {
     genresName: {
       type: DataTypes.ARRAY(DataTypes.STRING), //verificar que datos va a contener
       allowNull: false,
-    },
-    tags: {
-      type: DataTypes.ARRAY(DataTypes.STRING), //verificar que datos va a contener
-      // allowNull: false,
     },
     origin: {
       type: DataTypes.STRING,

@@ -9,15 +9,6 @@ function Detail() {
     const { id } = useParams();
     const [videogame, setVideogame] = useState({});
     const description = videogame.description?.split('\n\n');
-    const [color, setColor] = useState({
-        // ratingColor: function() {
-        //     if(videogame?.rating >= 75) setColor({ "--rating-color": "#00c041" });
-        //     if(videogame?.rating < 75 && videogame.rating >= 50) setColor({ "--rating-color": "#c06500" });
-        //     if(videogame?.rating < 50) setColor({ "--rating-color": "#ff0000" });
-        //     console.log(videogame?.rating)
-        // }
-        "--color-rating": "rgb(0,192,65)"
-    });
 
     useEffect(() => {
         ( async () => {
@@ -25,7 +16,6 @@ function Detail() {
                 const response = await axios(`http://localhost:3001/videogames/${id}`);
 
                 setVideogame({ ...response.data });
-                // await color.ratingColor();
             }
             catch(error){
                 throw Error(error.message)
@@ -88,11 +78,12 @@ function Detail() {
                     <div className={styles.tags}>
                         <p className={styles.title}>Tags</p>
                         <p className={styles.dataArrays}>
-                            {
+                            { videogame.tags ? 
                                 videogame.tags?.map((tag, i) => {
                                     if(videogame.tags?.length - 1 === i) return tag;
                                     return `${tag}, `;
                                 })
+                                : '-'
                             }
                         </p>
                     </div>
