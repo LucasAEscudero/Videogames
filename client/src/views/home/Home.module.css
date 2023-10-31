@@ -1,4 +1,57 @@
+/* .home{
+    display: flex;
+    flex-direction: column;
+} */
+
+.options{
+    display: flex;
+    justify-content: center;
+    margin: 1em 0 1em 0;
+    height: 2.5em;
+    align-items: center;
+}
+
+.types{
+    display: flex;
+    margin: 0 25px 0 25px;
+}
+
+.options > button{
+    border-radius: 25px;
+    margin: 5px;
+    padding: 5px;
+    width: 65px;
+    background-color: hsla(0,0%,100%,.1);
+    border: 1px solid hsla(0,0%,100%,.1);
+    /* margin-top: 0; */
+}
+
+.options > button:hover{
+    box-shadow: 0 0 15px #595fd5;
+}
+
 .videogames{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(3, 350px);
+    justify-content: space-around;
+    align-items: start;
+    justify-items: center;
+    row-gap: 5px;
+}
+
+.navigate{
+    margin: 1em 0 1em 0;
+}
+
+.navigate > button{
+    border-radius: 25px;
+    margin: 5px;
+    padding: 10px;
+    width: 100px;
+    background-color: hsla(0,0%,100%,.1);
+    border: 1px solid hsla(0,0%,100%,.1);
+}
+
+.navigate > button:hover{
+    box-shadow: 0 0 15px #595fd5;
 }

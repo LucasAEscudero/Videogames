@@ -1,0 +1,13 @@
+.select{
+    margin: 0 5px 0 5px;
+    border-radius: 10px;
+    background-color: hsla(0,0%,100%,.1);
+    outline: none;
+    border: none;
+    padding: 5px;
+    border: 1px solid hsla(0,0%,100%,.1);
+}
+
+.select:focus{
+    box-shadow: 0 0 15px #595fd5;
+}

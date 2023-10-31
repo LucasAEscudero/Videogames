@@ -22,16 +22,22 @@ function Home({ videogames, handlePages, page, handlerOptions, genres }) {
     }
 //genres para las options - generar componentes
     return(
-        <div>
-            <label htmlFor="">Type: </label>
-            <Options name="genres" values={genres} onChange={handlerOptions}/>
-            <Options name="origin" values={['API + BD', 'API', 'BD']} onChange={handlerOptions}/>
+        <div className={styles.home}>
+            <div className={styles.options}>
+                <div className={styles.types}>
+                    <label>Type: </label>
+                    <Options name="genres" values={genres} onChange={handlerOptions}/>
+                    <Options name="origin" values={['API + BD', 'API', 'BD']} onChange={handlerOptions}/>
+                </div>
 
-            <label htmlFor="">Order: </label>
-            <Options name="name" values={['Ascendent', 'Descendent']} onChange={handlerOptions}/>
-            <Options name="rating" values={['Minor', 'Major']} onChange={handlerOptions}/>
+                <div className={styles.types}>
+                    <label>Order: </label>
+                    <Options name="name" values={['Ascendent', 'Descendent']} onChange={handlerOptions}/>
+                    <Options name="rating" values={['Minor', 'Major']} onChange={handlerOptions}/>
+                </div>
 
-            <button onClick={resetFilters}>Reset</button>
+                <button onClick={resetFilters}>Reset</button>
+            </div>
             
             <div className={styles.videogames}>
                 {
@@ -50,10 +56,11 @@ function Home({ videogames, handlePages, page, handlerOptions, genres }) {
                     })
                 }
             </div>
-
-            <button value="previous" onClick={handlePages}>Previous</button>
-            <label htmlFor="">Page: {page}</label>
-            <button value="next" onClick={handlePages}>Next</button>
+            <div className={styles.navigate}>
+                <button value="previous" onClick={handlePages}>Previous</button>
+                <label htmlFor="">Page {page}</label>
+                <button value="next" onClick={handlePages}>Next</button>
+            </div>
         </div>
     )
 }

@@ -1,8 +1,7 @@
-.platforms,
-.genres{
-    display: flex;
+.form{
+    border-radius: 1em;
+    border: 1px solid hsla(0,0%,100%,.1);
+    margin: 1em;
+    background-color: hsla(0,0%,100%,.1);
+    padding: 2em;
 }
-
-/* hr{
-   
-} */

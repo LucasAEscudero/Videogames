@@ -1,7 +1,10 @@
+//styles
+import styles from './BoxList.module.css'
+
 function BoxList({ type, name, handleChange, input }) {
 
     return(
-        <div>
+        <div className={styles.input}>
             <input 
                 type="checkbox" 
                 key={name} 

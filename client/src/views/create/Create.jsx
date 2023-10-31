@@ -1,10 +1,12 @@
-import { useState } from "react"
-import axios from "axios";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-import CheckboxList from "../../components/checkboxList/CheckboxList";
+import Inputs from '../../components/inputs/Inputs';
+import CheckboxList from '../../components/checkboxList/CheckboxList';
+import validations from './validations';
 
 //styles
-import styles from './Create.module.css'
+import styles from './Create.module.css';
 
 
 function Create({ genres, platforms }) {
@@ -57,6 +59,7 @@ function Create({ genres, platforms }) {
             if(input.genres[key]) toPost.genresName.push(key);
         }
 
+        //post request
         try{
             await axios.post(`http://localhost:3001/videogames`, toPost);
         }
@@ -65,90 +68,93 @@ function Create({ genres, platforms }) {
         }
     }
 
+    useEffect(() => {
+        setErrors(validations(input));
+    }, [input])
+
+    // console.log(errors)
     // console.log(input) - modularizar inputs
     return(
         <div>
             <form className={styles.form}>
-                <label>Name: </label> <br />
-                <input 
-                    type="text"
-                    name="name"
-                    value={input.name}
-                    onChange={handleChange}
-                    placeholder="The game name..."
+                {/* name input */}
+                <Inputs
+                    name='name'
+                    type='text'
+                    input={input}
+                    handleChange={handleChange}
+                    placeholder='The game name...'
+                    errors={errors}
                 />
-                {/*  */}
-                <hr style={{ borderStyle: "none" }}/>
 
-                <label>Image: </label>
-                <input 
-                    type="url"
-                    name="image"
-                    value={input.image}
-                    onChange={handleChange}
-                    placeholder="The image url..."
-                 />
-                {/*  */}
-                <hr style={{ borderStyle: "none" }}/>
-
-                <label>Description: </label>
-                <textarea 
-                    name="description" 
-                    cols="80" 
-                    rows="10"
-                    value={input.description}
-                    onChange={handleChange}
-                    placeholder="The game description..."
+                {/* image input */}
+                <Inputs
+                    name='image'
+                    type='text'
+                    input={input}
+                    handleChange={handleChange}
+                    placeholder='The image url...'
+                    errors={errors}
                 />
-                {/*  */}
-                <hr style={{ borderStyle: "none" }}/>
 
-                <div className={styles.platforms}>
-                    <label>Platforms: </label>
-                    <CheckboxList 
-                        type="platforms" 
-                        names={platforms} 
-                        handleChange={handleCheckbox}
-                        input={input}
-                    />
-                    <hr style={{ borderStyle: "none" }}/>
-                </div>
-
-                <label>Released date: </label>
-                <input 
-                    type="date"
-                    name="released"
-                    onChange={handleChange}
-                    placeholder="The released date..."
+                {/* description input */}
+                <Inputs
+                    name='description'
+                    type='textarea'
+                    input={input}
+                    handleChange={handleChange}
+                    placeholder='The game description...'
+                    errors={errors}
                 />
-                {/*  */}
-                <hr style={{ borderStyle: "none" }}/>
 
-                <label>Rating: </label>
-                <input 
-                    type="number"
-                    name="rating"
-                    step='0.1'
-                    onChange={handleChange}
-                    placeholder="The game rating..."
+                {/* platforms checkbox */}
+                <CheckboxList 
+                    name="platforms" 
+                    array={platforms} 
+                    handleChange={handleCheckbox}
+                    input={input}
+                    errors={errors}
                 />
-                {/*  */}
-                <hr style={{ borderStyle: "none" }}/>
 
-                <div className={styles.genres}>
-                    <label>Genres: </label>
-                    <CheckboxList
-                        type="genres" 
-                        names={genres} 
-                        handleChange={handleCheckbox}
-                        input={input}
-                    />
-                    <hr style={{ borderStyle: "none" }}/>
-                </div>
+                {/* released input */}
+                <Inputs
+                    name='released'
+                    type='date'
+                    input={input}
+                    handleChange={handleChange}
+                    placeholder='The released date...'
+                    errors={errors}
+                    labelAux='released date'
+                />
+
+                {/* rating input */}
+                <Inputs
+                    name='rating'
+                    type='number'
+                    input={input}
+                    handleChange={handleChange}
+                    placeholder='The game rating...'
+                    errors={errors}
+                    step={0.1}
+                />
+
+                {/* genres checkbox */}
+                <CheckboxList
+                    name="genres" 
+                    array={genres} 
+                    handleChange={handleCheckbox}
+                    input={input}
+                    errors={errors}
+                />
 
                 <button
                     type="submit"
-                    // disabled={true}
+                    disabled={
+                        !input.name || !input.image || !input.description || !input.platforms
+                        || !input.released || !input.rating || !input.genres || errors.name 
+                        || errors.image || errors.description || errors.platforms || 
+                        errors.released || errors.rating || errors.genres
+                    }
                     onClick={handleSubmit}
                 >
                     Submit

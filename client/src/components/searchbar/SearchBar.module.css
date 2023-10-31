@@ -1,0 +1,38 @@
+.search{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.search > button{
+    background-color: transparent;
+    border-radius: 0;
+    /* transition: 0.5s; */
+}
+
+.search > button:hover{
+    box-shadow: 0 0 10px #595fd5;
+}
+
+.search > .lastButton{
+    border-top-right-radius: 22px;
+    border-bottom-right-radius: 22px;
+}
+
+.search > input{
+    margin: 8px;
+    height: 1.5em;
+    border-radius: 25px;
+}
+
+.search > input:hover{
+    filter: brightness(110%);
+    box-shadow: 0 0 10px #595fd5;
+    border-color: #595fd5;
+    
+}
+
+.search > input:focus{
+    outline: 1px solid #595fd5;
+    border-color: #595fd5;
+    box-shadow: 0 0 10px #595fd5;
+}

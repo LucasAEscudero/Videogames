@@ -9,19 +9,86 @@
 .videogameImg > img{
     width: 600px;
     margin-top: 1em;
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
+}
+
+.data{
+    display: flex;
+}
+
+.rating{
+    border: 1px solid #e3e3e3;
+    font-weight: 1000;
+    font-size: 1em;
+    border-radius: 5px;
+    padding: 5px;
+    height: 1.5em;
+}
+
+.released{
+    background-color: #e3e3e3;
+    color: black;
+    font-weight: 500;
+    font-size: 1em;
+    width: 85px;
+    height: 1.5em;
+    border-radius: 5px;
+    padding: 2px;
+    margin-right: 5px;
+}
+
+.id{
+    color: hsl(0, 0%, 40%);
+    float: left;
+}
+
+.front{
+    display: flex;
+    justify-content: space-between;
+    margin: 2em;
+}
+
+.front > div > h2{
+    text-align: start;
+}
+
+.name{
+    font-size: 3em;
+    margin-top: 0;
+    margin: 0;
+}
+
+.info{
+    margin: 1em;
+    margin-left: 2em;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.arrays{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin: 2em;
 }
 
 .platforms,
 .genres,
 .tags{
-    border: 1px solid #000;
+    text-align: start;
 }
 
-.info{
-    margin: 1em;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    border: 1px solid #000;
+.title{
+    color: hsl(0, 0%, 40%);
+    margin: 0;
+    display: block;
 }
 
+.dataArrays{
+    margin-top: 0;
+}
+
+.about > h2,
+.about > p{
+    text-align: start;
+}

@@ -3,6 +3,8 @@ import { useState } from "react"
 import { useDispatch } from "react-redux";
 import { renderVideogames, getVideogames, searchVideogamesName } from "../../redux/actions/actions";
 
+import styles from './SearchBar.module.css'
+
 function SearchBar({ maxApiPage, setPage }) {
     const [input, setInput] = useState("");
     const dispatch = useDispatch();
@@ -24,10 +26,10 @@ function SearchBar({ maxApiPage, setPage }) {
     }
 
     return(
-        <div>
+        <div className={styles.search}>
             <input type="text" value={input} onChange={handleInput}/>
             <button onClick={handleSubmit}>Search</button>
-            <button onClick={handleReset}>Reset</button>
+            <button onClick={handleReset} className={styles.lastButton}>Reset</button>
         </div>
     )
 }

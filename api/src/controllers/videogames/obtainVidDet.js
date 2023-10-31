@@ -5,7 +5,7 @@ const obtVideogameDetails = async (id) => {
     if(Number(id)){
         const { data } = await axios(`https://api.rawg.io/api/games/${id}?key=${process.env.API_KEY}`);
 
-        const description = data.description.replace( /(<([^>]+)>)/ig, ''); //replace html objects
+        // const description = data.description.replace( /(<([^>]+)>)/ig, ''); //replace html objects
         
         const videogame = {
             id: data.id,
@@ -13,7 +13,7 @@ const obtVideogameDetails = async (id) => {
             image: data.background_image,
             rating: data.rating,
             released: data.released,
-            description: description,
+            description: data.description_raw,
             platforms: data.platforms?.map(platform => platform.platform.name),
             genres: data.genres?.map(genre => genre.name),
             tags: data.tags?.map(tag => tag.name),
