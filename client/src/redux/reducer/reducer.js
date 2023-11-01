@@ -16,14 +16,19 @@ import {
 import nameOrder from '../utils/nameOrder';
 import ratingOrder from '../utils/ratingOrder';
 import originVideogames from '../utils/originVideogames';
+import nameVideogames from '../utils/nameVideogames';
 
 const initialState = {
     videogames: [],
     allVideogames: [],
     copyAllVideogames: [],
-    maxPage: 0,
+
     bdVideogames: [],
     apiVideogames: [],
+    maxPage: 0,
+    byName: false,
+    error: '',
+
     allGenres: [],
     allplatforms: []
 };
@@ -37,21 +42,23 @@ function reducer(state = initialState, action) {
                 allVideogames: [...action.payload],
                 copyAllVideogames: [...action.payload],
                 bdVideogames: [...action.payload].filter(game => game.origin === 'BD'),
-                apiVideogames: [...action.payload].filter(game => game.origin === 'API')
-                // maxPage: Math.floor(state.allVideogames.length / 15)
+                apiVideogames: [...action.payload].filter(game => game.origin === 'API'),
+                
+                error: '',
+                byName: false
             };
 
         case GET_GENRES:
             return {
                 ...state,
                 allGenres: [...action.payload]
-            }
+            };
 
         case GET_PLATFORMS:
             return {
                 ...state,
                 platforms: [...action.payload]
-            }
+            };
 
             //render 15 videogames
         case RENDER_VIDEOGAMES:
@@ -62,15 +69,7 @@ function reducer(state = initialState, action) {
             };
 
             //load videogames with the name input
-        case NAME_VIDEOGAMES:
-            return {
-                ...state,
-                allVideogames: [...action.payload],
-                copyAllVideogames: [...action.payload],
-                bdVideogames: [...action.payload].filter(game => game.origin === 'BD'),
-                apiVideogames: [...action.payload].filter(game => game.origin === 'API')
-                // maxPage: Math.floor(state.allVideogames.length / 15)
-            };
+        case NAME_VIDEOGAMES: return nameVideogames(state, action.payload);
 
         case GENRES_VIDEOGAMES: 
             return {
@@ -78,25 +77,22 @@ function reducer(state = initialState, action) {
                 allVideogames: [...state.allVideogames].filter(game => {
                     return game.genres?.find(genre => genre === action.payload);
                 })
-            }
+            };
 
-        case ORIGIN_VIDEOGAMES: 
-            return originVideogames(state, action.payload);
+        case ORIGIN_VIDEOGAMES: return originVideogames(state, action.payload);
 
             //order videogames by name
-        case NAME_ORDER:
-            return nameOrder(state, action.payload);
+        case NAME_ORDER: return nameOrder(state, action.payload);
 
             //order videogames by order
-        case RATING_ORDER: 
-            return ratingOrder(state, action.payload);
+        case RATING_ORDER: return ratingOrder(state, action.payload);
 
             //reset to original videogames render
         case RESET:
             return{
                 ...state,
                 allVideogames: [...state.copyAllVideogames]
-            } 
+            };
 
         default: return {...state};
     }

@@ -1,16 +1,18 @@
 .navBar{
     display: flex;
     justify-content: space-between;
+    position: sticky;
+    top: 7px;
+    z-index: 500;
+
+
     margin: 1em;
+    margin: auto;
+    padding: 0;
+    width: 700px;
     border-radius: 25px;
     background-color: #353535;
     border: 1px solid hsla(0,0%,100%,.1);
-    position: sticky;
-    top: 7px;
-    z-index: 100;
-    width: 700px;
-    padding: 0;
-    margin: auto;
 }
 
 .firstButton,

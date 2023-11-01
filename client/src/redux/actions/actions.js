@@ -73,10 +73,10 @@ export const searchVideogamesName = (name) => {
     return async (dispatch) => {
         try{
             const { data } = await axios(`http://localhost:3001/videogames/name?name=${name}`);
-
+        
             return dispatch({
                 type: NAME_VIDEOGAMES,
-                payload: data 
+                payload: data,
             }); 
         }
         catch(error){

@@ -1,7 +1,7 @@
-/* .home{
+.home{
     display: flex;
     flex-direction: column;
-} */
+}
 
 .options{
     display: flex;
@@ -55,3 +55,23 @@
 .navigate > button:hover{
     box-shadow: 0 0 15px #595fd5;
 }
+
+/* error */
+
+.errorHome{
+    display: flex;
+    justify-content: center;
+    margin-top: 5em;
+}
+
+.errorContainer{
+    border: 1px solid hsla(0,0%,100%,.1);
+    background-color: #353535;
+    width: 700px;
+    height: 300px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

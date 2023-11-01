@@ -22,14 +22,13 @@ function SearchBar({ maxApiPage, setPage }) {
     const handleReset = async () => {
         await dispatch(getVideogames(maxApiPage));
         await dispatch(renderVideogames(1));
-
     }
 
     return(
         <div className={styles.search}>
             <input type="text" value={input} onChange={handleInput}/>
             <button onClick={handleSubmit}>Search</button>
-            <button onClick={handleReset} className={styles.lastButton}>Reset</button>
+            <button onClick={handleReset} className={styles.lastButton}>Reset Search</button>
         </div>
     )
 }

@@ -114,7 +114,10 @@ function App() {
 
   return(
     <div>
-      { useLocation().pathname !== '/' && <Nav maxApiPage={maxApiPage} setPage={setPage} /> }
+      { 
+        useLocation().pathname !== '/' && 
+        <Nav maxApiPage={maxApiPage} setPage={setPage} />
+      }
       <Routes>
         <Route path='/' element={<Landing />}/>
 

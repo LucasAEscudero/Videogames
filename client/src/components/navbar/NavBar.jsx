@@ -10,17 +10,18 @@ import styles from './NavBar.module.css'
 function Nav({ maxApiPage, setPage }) {
 
     return(
-        <div className={styles.navBar}>
-            <div className={styles.links}>
-                <Link to='/home'><button className={styles.firstButton}>Home</button></Link>
-                <Link to='/create'><button className={styles.link}>Create</button></Link>
-            </div>
+        // <div className={styles.navContainer}>
+            <div className={styles.navBar}>
+                <div className={styles.links}>
+                    <Link to='/home'><button className={styles.firstButton}>Home</button></Link>
+                    <Link to='/create'><button className={styles.link}>Create</button></Link>
+                </div>
 
-            <div className={styles.search}>
-                <SearchBar maxApiPage={maxApiPage} setPage={setPage} />
+                <div className={styles.search}>
+                    <SearchBar maxApiPage={maxApiPage} setPage={setPage} />
+                </div>
             </div>
-            
-        </div>
+        // </div>
     )
 }
 
