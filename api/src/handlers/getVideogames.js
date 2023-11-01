@@ -17,11 +17,11 @@ const getVideogames = async (req, res) => {
 
 const getVideogameByName = async (req, res) => {
     try{
-        const { name, maxPage } = req.query;
+        const { name } = req.query;
 
-        const videogames = await obtainVideogameByName(name, maxPage);
+        const videogames = await obtainVideogameByName(name);
         
-        if(!videogames.length) return  res.status(200).send('The desired game does not exist');
+        if(!videogames.length) return  res.status(200).send('The videogame was not found');
 
         return res.status(200).json(videogames);
     }

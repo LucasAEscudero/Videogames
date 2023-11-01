@@ -25,7 +25,7 @@ const initialState = {
     bdVideogames: [],
     apiVideogames: [],
     allGenres: [],
-    platforms: []
+    allplatforms: []
 };
 
 function reducer(state = initialState, action) {

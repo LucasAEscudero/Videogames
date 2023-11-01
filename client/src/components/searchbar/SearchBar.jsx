@@ -14,7 +14,7 @@ function SearchBar({ maxApiPage, setPage }) {
     }
 
     const handleSubmit = async () => {
-        await dispatch(searchVideogamesName(input, maxApiPage));
+        await dispatch(searchVideogamesName(input));
         dispatch(renderVideogames(1));
         setPage(1); 
     }

@@ -38,9 +38,9 @@ function App() {
   const maxApiPage = 5;
 
   const videogames = useSelector(state => state.videogames);
-  const genres = useSelector(state => state.allGenres);
   const maxPage = useSelector(state => state.maxPage);
-  const platforms = useSelector(state => state.platforms);
+  const genres = useSelector(state => state.allGenres);
+  const platforms = useSelector(state => state.allplatforms);
   // const renderVid = videogames.slice(((page-1)*15), ((page-1)*15) + 15);
   // const renderVid = useSelector(state => state.renderVideogames)
   
