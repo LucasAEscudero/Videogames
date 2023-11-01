@@ -17,7 +17,8 @@ function Create({ genres, platforms }) {
         platforms: {},
         released: '',
         rating: '',
-        genres: {}
+        genres: {},
+        detectChanges: 0
     });
 
     const [errors, setErrors] = useState({});
@@ -35,7 +36,8 @@ function Create({ genres, platforms }) {
             [event.target.name]: { 
                 ...input[event.target.name],
                 [event.target.value]: event.target.checked
-            }  //Object.keys(myObj).length to know the length
+            },  //Object.keys(myObj).length to know the length
+            detectChanges: input.detectChanges + 1
         })
     }
 
@@ -83,6 +85,14 @@ function Create({ genres, platforms }) {
     }
 
     useEffect(() => {
+        for(let key in input.platforms){
+            if(!input.platforms[key]) delete input.platforms[key];
+        }
+        
+        for(let key in input.genres){
+            if(!input.genres[key]) delete input.genres[key];
+        }
+
         setErrors(validations(input));
     }, [input])
 
@@ -163,12 +173,12 @@ function Create({ genres, platforms }) {
 
                 <button
                     type="submit"
-                    // disabled={
-                    //     !input.name || !input.image || !input.description || !input.platforms
-                    //     || !input.released || !input.rating || !input.genres || errors.name 
-                    //     || errors.image || errors.description || errors.platforms || 
-                    //     errors.released || errors.rating || errors.genres
-                    // }
+                    disabled={
+                        !input.name || !input.image || !input.description || !input.platforms
+                        || !input.released || !input.rating || !input.genres || errors.name 
+                        || errors.image || errors.description || errors.platforms || 
+                        errors.released || errors.rating || errors.genres
+                    }
                     onClick={handleSubmit}
                 >
                     Submit

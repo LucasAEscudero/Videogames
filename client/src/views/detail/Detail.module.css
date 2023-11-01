@@ -10,7 +10,7 @@
     width: 600px;
     max-height: 400px;
     margin-top: 1em;
-    /* border: 1px solid #000; */
+    border: 1px solid hsla(0,0%,100%,.1);
 }
 
 .data{

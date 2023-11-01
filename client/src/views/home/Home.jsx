@@ -20,20 +20,37 @@ function Home({ videogames, handlePages, page, handlerOptions, genres }) {
         dispatch(reset());
         dispatch(renderVideogames(1))
     }
+
 //genres para las options - generar componentes
     return(
         <div className={styles.home}>
             <div className={styles.options}>
                 <div className={styles.types}>
                     <label>Type: </label>
-                    <Options name="genres" values={genres} onChange={handlerOptions}/>
-                    <Options name="origin" values={['API + BD', 'API', 'BD']} onChange={handlerOptions}/>
+                    <Options 
+                        name="genres" 
+                        values={genres} 
+                        onChange={handlerOptions}
+                    />
+                    <Options 
+                        name="origin" 
+                        values={['API + BD', 'API', 'BD']} 
+                        onChange={handlerOptions}
+                    />
                 </div>
 
                 <div className={styles.types}>
                     <label>Order: </label>
-                    <Options name="name" values={['Ascendent', 'Descendent']} onChange={handlerOptions}/>
-                    <Options name="rating" values={['Minor', 'Major']} onChange={handlerOptions}/>
+                    <Options 
+                        name="name" 
+                        values={['Ascendent', 'Descendent']} 
+                        onChange={handlerOptions}
+                    />
+                    <Options 
+                        name="rating" 
+                        values={['Minor', 'Major']} 
+                        onChange={handlerOptions}
+                    />
                 </div>
 
                 <button onClick={resetFilters}>Reset</button>
