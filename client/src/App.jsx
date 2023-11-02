@@ -1,6 +1,6 @@
 //react
 import { useState, useEffect } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 //redux
@@ -17,30 +17,32 @@ import {
 } from './redux/actions/actions'
 
 //components
+import Home from './views/home/Home'
+import Detail from './views/detail/Detail'
+import Landing from './views/landing/Landing'
 
 import Nav from './components/navbar/NavBar'
-import Detail from './views/detail/Detail'
-
 import Landing from './views/landing/Landing'
-import Home from './views/home/Home'
-
 import Error from './views/error/Error'
 
 
 //styles
 import './App.css'
 import Create from './views/create/Create'
+import Loading from './components/Loading/Loading'
+import Library from './views/library/Library'
 
 function App() {
   //hooks
   const dispatch = useDispatch();
   const [page, setPage] = useState(1)
   const maxApiPage = 5;
+  const [isLoading, SetIsLoading] = useState(false);
 
   const videogames = useSelector(state => state.videogames);
   const maxPage = useSelector(state => state.maxPage);
   const genres = useSelector(state => state.allGenres);
-  const platforms = useSelector(state => state.allplatforms);
+  const platforms = useSelector(state => state.allPlatforms);
   // const renderVid = videogames.slice(((page-1)*15), ((page-1)*15) + 15);
   // const renderVid = useSelector(state => state.renderVideogames)
   
@@ -57,10 +59,12 @@ function App() {
   //load first videogames - home
   useEffect(() => {
     (async () => {
+      SetIsLoading(true);
       await dispatch(getVideogames(maxApiPage));
       await dispatch(renderVideogames(page));
       await dispatch(getGenres());
       await dispatch(getPlatforms());
+      SetIsLoading(false);
     })();
   }, [])
 
@@ -116,7 +120,7 @@ function App() {
     <div>
       { 
         useLocation().pathname !== '/' && 
-        <Nav maxApiPage={maxApiPage} setPage={setPage} />
+        <Nav maxApiPage={maxApiPage} setPage={setPage} setIsLoading={SetIsLoading} />
       }
       <Routes>
         <Route path='/' element={<Landing />}/>
@@ -128,11 +132,21 @@ function App() {
           page={page}
           handlerOptions={handlerOptions}
           genres={genres}
+          isLoading={isLoading}
         />
         }/>
         <Route path='/detail/:id' element={<Detail />}/>
         <Route path='/create' element={<Create genres={genres} platforms={platforms}/>}/>
-
+        <Route path='/library' element={
+        <Library 
+          videogames={videogames} 
+          handlePages={handlePages} 
+          page={page}
+          handlerOptions={handlerOptions}
+          genres={genres}
+          isLoading={isLoading}
+        />
+        }/>
         <Route path='*' element={<Error />}/>
       </Routes>
     </div>

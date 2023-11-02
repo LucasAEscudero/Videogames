@@ -7,7 +7,7 @@ import SearchBar from '../searchbar/SearchBar'
 //styles
 import styles from './NavBar.module.css'
 
-function Nav({ maxApiPage, setPage }) {
+function Nav({ maxApiPage, setPage, setIsLoading }) {
 
     return(
         // <div className={styles.navContainer}>
@@ -18,7 +18,7 @@ function Nav({ maxApiPage, setPage }) {
                 </div>
 
                 <div className={styles.search}>
-                    <SearchBar maxApiPage={maxApiPage} setPage={setPage} />
+                    <SearchBar maxApiPage={maxApiPage} setPage={setPage} setIsLoading={setIsLoading} />
                 </div>
             </div>
         // </div>

@@ -1,21 +1,9 @@
-//react
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-
-//redux
-import { useSelector, useDispatch } from 'react-redux'
-import { getVideogames, renderVideogames, reset } from '../../redux/actions/actions'
-
 //components
-import Videogame from '../../components/videogame/Videogame';
-import Options from '../../components/options/Options';
-import Loading from '../../components/Loading/Loading';
 
 //styles
-import styles from './Home.module.css'
-import { useNavigate } from 'react-router-dom';
+import styles from './Library.module.css'
 
-function Home({ videogames, handlePages, page, handlerOptions, genres, isLoading }) {
+function Library({ videogames, handlePages, page, handlerOptions, genres, isLoading }) {
     const dispatch = useDispatch();
     const byName = useSelector(state => state.byName);
     const error = useSelector(state => state.error);
@@ -24,21 +12,8 @@ function Home({ videogames, handlePages, page, handlerOptions, genres, isLoading
         dispatch(reset());
         dispatch(renderVideogames(1))
     }
-    // console.log(isLoading, videogames, genres)
 
     if(isLoading) return(<div><Loading /></div>)
-    
-        
-    //error search
-    if(error){
-        return(
-            <div className={styles.errorHome}>
-                <div className={styles.errorContainer}>
-                    <h2>{error}</h2>
-                </div>
-            </div>
-        )
-    }
     
     return(
         <div className={styles.home}>
@@ -105,4 +80,4 @@ function Home({ videogames, handlePages, page, handlerOptions, genres, isLoading
     
 }
 
-export default Home
+export default Library

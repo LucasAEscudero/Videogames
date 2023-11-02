@@ -30,7 +30,7 @@ const initialState = {
     error: '',
 
     allGenres: [],
-    allplatforms: []
+    allPlatforms: []
 };
 
 function reducer(state = initialState, action) {
@@ -57,7 +57,7 @@ function reducer(state = initialState, action) {
         case GET_PLATFORMS:
             return {
                 ...state,
-                platforms: [...action.payload]
+                allPlatforms: [...action.payload]
             };
 
             //render 15 videogames

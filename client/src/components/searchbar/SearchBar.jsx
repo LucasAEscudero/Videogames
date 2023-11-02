@@ -5,7 +5,7 @@ import { renderVideogames, getVideogames, searchVideogamesName } from "../../red
 
 import styles from './SearchBar.module.css'
 
-function SearchBar({ maxApiPage, setPage }) {
+function SearchBar({ maxApiPage, setPage, setIsLoading }) {
     const [input, setInput] = useState("");
     const dispatch = useDispatch();
 
@@ -14,14 +14,18 @@ function SearchBar({ maxApiPage, setPage }) {
     }
 
     const handleSubmit = async () => {
+        setIsLoading(true);
         await dispatch(searchVideogamesName(input));
         dispatch(renderVideogames(1));
-        setPage(1); 
+        setPage(1);
+        setIsLoading(false);
     }
 
     const handleReset = async () => {
+        setIsLoading(true);
         await dispatch(getVideogames(maxApiPage));
         await dispatch(renderVideogames(1));
+        setIsLoading(false);
     }
 
     return(
