@@ -1,0 +1,15 @@
+.platforms,
+.genres,
+.tags{
+    text-align: start;
+}
+
+.title{
+    color: hsl(0, 0%, 40%);
+    margin: 0;
+    display: block;
+}
+
+.dataArrays{
+    margin-top: 0;
+}

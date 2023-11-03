@@ -7,7 +7,8 @@ const genresBD = async () => {
     
     response.data.results.forEach(genre => genres.push(genre.name));
 
-    response.data.results.forEach(genre => Genres.create({ name: genre.name }));
+    // response.data.results.forEach(genre => Genres.create({ name: genre.name }));
+    genres.forEach(genre => Genres.findOrCreate({ where: { name: genre } }));
 
     return genres;
 }

@@ -2,6 +2,10 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+//components
+import DetailArrays from "../../components/detailArrays/DetailArrays";
+
+//styles
 import styles from './Detail.module.css';
 
 
@@ -53,40 +57,12 @@ function Detail() {
                 </div>
 
                 <div className={styles.arrays}>
-                    <div className={styles.platforms}>
-                        <p className={styles.title}>Platforms</p>
-                        <p className={styles.dataArrays}>
-                            {
-                                videogame.platforms?.map((platform, i) => {
-                                    if(videogame.platforms?.length - 1 === i) return platform;
-                                    return `${platform}, `;
-                                })
-                            }
-                        </p>
-                    </div>
-                    <div className={styles.genres}>
-                        <p className={styles.title}>Genres</p>
-                        <p className={styles.dataArrays}>
-                            {
-                                videogame.genres?.map((genres, i) => {
-                                    if(videogame.genres?.length - 1 === i) return genres;
-                                    return `${genres}, `;
-                                })
-                            }
-                        </p>
-                    </div>
-                    <div className={styles.tags}>
-                        <p className={styles.title}>Tags</p>
-                        <p className={styles.dataArrays}>
-                            { videogame.tags ? 
-                                videogame.tags?.map((tag, i) => {
-                                    if(videogame.tags?.length - 1 === i) return tag;
-                                    return `${tag}, `;
-                                })
-                                : '-'
-                            }
-                        </p>
-                    </div>
+
+                    <DetailArrays name='platforms' array={videogame.platforms} />
+
+                    <DetailArrays name='genres' array={videogame.genres} />
+
+                    <DetailArrays name='tags' array={videogame.tags} />
                 </div>
             </div>
         </div>

@@ -30,7 +30,7 @@ const initialState = {
     error: '',
 
     allGenres: [],
-    allPlatforms: []
+    allPlatforms: [],
 };
 
 function reducer(state = initialState, action) {

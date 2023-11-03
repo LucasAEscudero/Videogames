@@ -8,7 +8,7 @@ import {
     ORIGIN_VIDEOGAMES,
     NAME_ORDER,
     RATING_ORDER,
-    RESET 
+    RESET
 } from './action-types';
 import axios from 'axios';
 

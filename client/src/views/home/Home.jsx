@@ -1,7 +1,3 @@
-//react
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-
 //redux
 import { useSelector, useDispatch } from 'react-redux'
 import { getVideogames, renderVideogames, reset } from '../../redux/actions/actions'
@@ -9,11 +5,11 @@ import { getVideogames, renderVideogames, reset } from '../../redux/actions/acti
 //components
 import Videogame from '../../components/videogame/Videogame';
 import Options from '../../components/options/Options';
-import Loading from '../../components/Loading/Loading';
+import Loading from '../../components/loading/Loading';
+import Error from '../error/Error';
 
 //styles
 import styles from './Home.module.css'
-import { useNavigate } from 'react-router-dom';
 
 function Home({ videogames, handlePages, page, handlerOptions, genres, isLoading }) {
     const dispatch = useDispatch();
@@ -27,30 +23,23 @@ function Home({ videogames, handlePages, page, handlerOptions, genres, isLoading
     // console.log(isLoading, videogames, genres)
 
     if(isLoading) return(<div><Loading /></div>)
-    
         
     //error search
-    if(error){
-        return(
-            <div className={styles.errorHome}>
-                <div className={styles.errorContainer}>
-                    <h2>{error}</h2>
-                </div>
-            </div>
-        )
-    }
+    if(error) return(<div><Error error={error} /></div>)
     
     return(
         <div className={styles.home}>
             <div className={styles.options}>
                 <div className={styles.types}>
-                    <label>Type: </label>
+                    <label htmlFor='types'>Type: </label>
                     <Options 
+                        key="genres"
                         name="genres" 
                         values={genres} 
                         onChange={handlerOptions}
                     />
                     <Options 
+                        key="origin"
                         name="origin" 
                         values={['API + BD', 'API', 'BD']} 
                         onChange={handlerOptions}
@@ -58,13 +47,15 @@ function Home({ videogames, handlePages, page, handlerOptions, genres, isLoading
                 </div>
 
                 <div className={styles.types}>
-                    <label>Order: </label>
+                    <label htmlFor='order'>Order: </label>
                     <Options 
+                        key="name"
                         name="name" 
                         values={['Ascendent', 'Descendent']} 
                         onChange={handlerOptions}
                     />
                     <Options 
+                        key="rating"
                         name="rating" 
                         values={['Minor', 'Major']} 
                         onChange={handlerOptions}
@@ -87,6 +78,7 @@ function Home({ videogames, handlePages, page, handlerOptions, genres, isLoading
                             platforms={videogame.platforms}
                             genres={videogame.genres}
                             tags={videogame.tags}
+                            origin={videogame.origin}
                         />
                     })
                 }

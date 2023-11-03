@@ -4,7 +4,7 @@ const genresBDLoad = async (req, res) => {
     try{
         const genres = await obtainGenres(); //obtengo la info de la api
 
-        return res.status(200).json(genres);
+        return res.status(200).send('Genres loaded');
     }
     catch(error){
         return res.status(404).json({ error: error.message });

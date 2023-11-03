@@ -1,7 +1,6 @@
 //react
 import { useState, useEffect } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
-import axios from 'axios'
 
 //redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -22,15 +21,12 @@ import Detail from './views/detail/Detail'
 import Landing from './views/landing/Landing'
 
 import Nav from './components/navbar/NavBar'
-import Landing from './views/landing/Landing'
 import Error from './views/error/Error'
 
 
 //styles
 import './App.css'
 import Create from './views/create/Create'
-import Loading from './components/Loading/Loading'
-import Library from './views/library/Library'
 
 function App() {
   //hooks
@@ -137,17 +133,8 @@ function App() {
         }/>
         <Route path='/detail/:id' element={<Detail />}/>
         <Route path='/create' element={<Create genres={genres} platforms={platforms}/>}/>
-        <Route path='/library' element={
-        <Library 
-          videogames={videogames} 
-          handlePages={handlePages} 
-          page={page}
-          handlerOptions={handlerOptions}
-          genres={genres}
-          isLoading={isLoading}
-        />
-        }/>
-        <Route path='*' element={<Error />}/>
+
+        <Route path='*' element={<Error error="Error 404"/>}/>
       </Routes>
     </div>
   )
