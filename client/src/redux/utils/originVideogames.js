@@ -8,13 +8,13 @@ const originVideogames = (state, origin) => {
     else if(origin === 'BD'){ 
         return {
             ...state,
-            allVideogames: [...state.bdVideogames]
+            allVideogames: [...state.allVideogames].filter(game => game.origin === 'BD')
         }
     }
-    else {
+    else if(origin === 'API') {
         return {
             ...state,
-            allVideogames: [...state.apiVideogames]
+            allVideogames: [...state.allVideogames].filter(game => game.origin === 'API')
         }
     }
 }

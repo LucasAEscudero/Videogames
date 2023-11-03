@@ -5,8 +5,9 @@ const nameVideogames = (state, videogames) => {
         ...state,
         allVideogames: [...videogames],
         copyAllVideogames: [...videogames],
-        bdVideogames: [...videogames].filter(game => game.origin === 'BD'),
-        apiVideogames: [...videogames].filter(game => game.origin === 'API'),
+        resetAllVideogames: [...videogames],
+        // bdVideogames: [...videogames].filter(game => game.origin === 'BD'),
+        // apiVideogames: [...videogames].filter(game => game.origin === 'API'),
         byName: true
     };
 }
