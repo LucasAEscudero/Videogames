@@ -22,6 +22,7 @@ import Landing from './views/landing/Landing'
 
 import Nav from './components/navbar/NavBar'
 import Error from './views/error/Error'
+import Notification from './components/notification/Notification'
 
 
 //styles

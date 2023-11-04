@@ -36,6 +36,7 @@ function Inputs({ name, type, input, handleChange, placeholder, errors, labelAux
                 <input 
                     type={type}
                     name={name}
+                    value={input[name]}
                     onChange={handleChange}
                     placeholder={placeholder}
                 />
@@ -47,6 +48,7 @@ function Inputs({ name, type, input, handleChange, placeholder, errors, labelAux
                 type={type}
                 name={name}
                 step={step}
+                value={input[name]}
                 onChange={handleChange}
                 placeholder={placeholder}
                 />

@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue: 'https://cdn.discordapp.com/attachments/1145706386320273519/1170444044040667266/default_image.jpg?ex=65590ff5&is=65469af5&hm=057db0634d84e6ca052aa2ee4e36d9f2fde0c635345cbdf3f3681e89ddf0791d&',
       validate: {
         isUrl: true 
       }

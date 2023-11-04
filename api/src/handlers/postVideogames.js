@@ -15,9 +15,11 @@ const postVideogames = async (req, res) => {
             return res.status(404).send('Default info');
         }
 
-        await postVideogame(name, description, platforms, image, released, rating, genresName);
+        const created = await postVideogame(name, description, platforms, image, released, rating, genresName);
 
-        return res.status(200).send('Data loaded');
+        if(created) return res.status(200).send('This game already exists (the name has already been used)');
+
+        return res.status(200).send('The game has been created');
     }
     catch(error){
         return res.status(500).json({ error: error.message });

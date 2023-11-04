@@ -3,19 +3,41 @@ const { Op } = require("sequelize");
 
 const postVideogame = async (name, description, platforms, image, released, rating, genresName) => {
 
-    const videogame = await Videogame.create({
-        name: name,
-        description: description,
-        rating: rating,
-        released: released,
-        image: image,
-        platforms: platforms,
-        genresName: genresName
-    });
+    const [videogame, created] = await Videogame.findOrCreate({
+        where: {
+            name: name
+        },
+        defaults: {
+            description: description,
+            rating: rating,
+            released: released,
+            image: image,
+            platforms: platforms,
+            genresName: genresName
+        }
+    })
 
-    const vidGenres = await searchGenderId(genresName);
+    if(!created) return true;
+
+    const vidGenres = await searchGenderId(genresName); //array
     
     videogame.addGenres(vidGenres);
+
+    return false;
+
+    // const videogame = await Videogame.create({
+    //     name: name,
+    //     description: description,
+    //     rating: rating,
+    //     released: released,
+    //     image: image,
+    //     platforms: platforms,
+    //     genresName: genresName
+    // });
+
+    // const vidGenres = await searchGenderId(genresName);
+    
+    // videogame.addGenres(vidGenres);
 }
 
 const searchGenderId = async (genres) => {

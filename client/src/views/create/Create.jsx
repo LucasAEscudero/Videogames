@@ -7,6 +7,7 @@ import validations from './validations';
 
 //styles
 import styles from './Create.module.css';
+import Notification from '../../components/notification/Notification';
 
 
 function Create({ genres, platforms }) {
@@ -22,6 +23,12 @@ function Create({ genres, platforms }) {
     });
 
     const [errors, setErrors] = useState({});
+
+    const [notification, setNotification] = useState({
+        state: false,
+        message: "",
+        type: ""
+    });
 
     const handleChange = (event) => {
         setInput({
@@ -64,22 +71,49 @@ function Create({ genres, platforms }) {
 
         //post request
         try{
-            await axios.post(`http://localhost:3001/videogames`, toPost);
+            const { data } = await axios.post(`http://localhost:3001/videogames`, toPost);
+            
+            if(
+                data === "This game already exists (the name has already been used)"
+            ){
+                setNotification({ 
+                    state: true, 
+                    message: data,
+                    type: "error"
+                });
 
-            setInput({
-                name: '',
-                image: '',
-                description: '',
-                platforms: {},
-                released: '',
-                rating: '',
-                genres: {}
-            });
+                setTimeout(() => setNotification({ state: false }), 5000);
+            }
+            else {
+                setNotification({ 
+                    state: true, 
+                    message: data,
+                    type: "possitive"
+                });
 
-            window.alert("The video game was successfully created")
+                setTimeout(() => setNotification({ state: false }), 5000);
+    
+                setInput({
+                    name: '',
+                    image: '',
+                    description: '',
+                    platforms: {},
+                    released: '',
+                    rating: '',
+                    genres: {}
+                });
+            }
         }
         catch(error){
-            window.alert("I can't create the video game, check that the fields are with the correct information");
+            // window.alert("I can't create the video game, check that the fields are with the correct information");
+            setNotification({ 
+                state: true, 
+                message: error.message,
+                type: "error"
+            });
+            
+            setTimeout(() => setNotification({ state: false }), 5000);
+
             throw Error(error.message);
         }
     }
@@ -95,9 +129,7 @@ function Create({ genres, platforms }) {
 
         setErrors(validations(input));
     }, [input])
-
-    // console.log(errors)
-    // console.log(input) - modularizar inputs
+    
     return(
         <div className={styles.form}>
             <h2>Create your videogame</h2>
@@ -170,19 +202,24 @@ function Create({ genres, platforms }) {
                     input={input}
                     errors={errors}
                 />
-
+                
                 <button
                     type="submit"
-                    disabled={
-                        !input.name || !input.image || !input.description || !input.platforms
-                        || !input.released || !input.rating || !input.genres || errors.name 
-                        || errors.image || errors.description || errors.platforms || 
-                        errors.released || errors.rating || errors.genres
-                    }
+                    // disabled={
+                    //     !input.name || !input.image || !input.description || !input.platforms
+                    //     || !input.released || !input.rating || !input.genres || errors.name 
+                    //     || errors.image || errors.description || errors.platforms || 
+                    //     errors.released || errors.rating || errors.genres
+                    // }
                     onClick={handleSubmit}
                 >
                     Submit
                 </button>
+
+                {
+                    notification.state &&
+                    <Notification message={notification.message} type={notification.type} />
+                }
             </form>
         </div>
     )

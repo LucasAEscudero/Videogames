@@ -2,7 +2,6 @@
 import styles from './BoxList.module.css'
 
 function BoxList({ type, name, handleChange, input }) {
-
     return(
         <div className={styles.input}>
             <input 
@@ -11,6 +10,7 @@ function BoxList({ type, name, handleChange, input }) {
                 name={type} 
                 value={name} 
                 onChange={handleChange}
+                checked={input[type][name] || false}
             />
             <label for={name}>{name}</label>
             

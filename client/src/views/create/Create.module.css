@@ -2,7 +2,7 @@
     border-radius: 1em;
     border: 1px solid hsla(0,0%,100%,.1);
     margin: 1em;
-    background-color: hsla(0,0%,100%,.1);
+    background-color: #353535;
     padding: 2em;
     padding-top: 0;
 }
@@ -10,3 +10,8 @@
 .form > h2{
     text-align: start;
 }
+
+/* .notification{
+    display: flex;
+    justify-content: center;
+} */

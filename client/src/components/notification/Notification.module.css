@@ -1,0 +1,67 @@
+/* .container{
+    border-radius: 25px;
+    position: absolute;
+    height: 100px;
+    width: 250px;
+    right: 10px;
+    bottom: 10px;
+} */
+
+.possitive{
+    background-color: #12D054;
+    border-radius: 15px;
+    border: 2px solid rgb(0, 97, 0);
+
+    position: fixed;
+    height: 100px;
+    width: 250px;
+    right: 10px;
+    bottom: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation-name: appear;
+    animation-duration: 3s;
+    
+}
+
+.error{
+    background-color: #DC2323;
+    border-radius: 15px;
+    border: 2px solid rgb(134, 2, 2);
+
+    position: fixed;
+    height: 100px;
+    width: 250px;
+    right: 10px;
+    bottom: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation-name: appear;
+    animation-duration: 3s;
+}
+
+.message{
+    padding: 5px;
+}
+
+@keyframes appear{
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* @keyframes appear{
+    from{
+        height: 0;
+        width: 0;
+    }
+    to{
+        height: 100px;
+        width: 250px;
+    }
+} */

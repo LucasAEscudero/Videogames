@@ -23,6 +23,7 @@ function SearchBar({ maxApiPage, setPage, setIsLoading }) {
 
     const handleReset = async () => {
         setIsLoading(true);
+        setInput("");
         await dispatch(getVideogames(maxApiPage));
         await dispatch(renderVideogames(1));
         setIsLoading(false);
