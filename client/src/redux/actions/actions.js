@@ -10,7 +10,9 @@ import {
     NAME_ORDER,
     RATING_ORDER,
     RESET,
-    CLEAN_DETAIL
+    CLEAN_DETAIL,
+    IS_NOT_LOADING,
+    IS_LOADING
 } from './action-types';
 import axios from 'axios';
 
@@ -151,6 +153,22 @@ export const reset = () => {
     return (dispatch) => {
         return dispatch({
             type: RESET
+        })
+    }
+}
+
+export const isNotLoading = () => {
+    return (dispatch) => {
+        return dispatch({
+            type: IS_NOT_LOADING
+        })
+    }
+}
+
+export const loading = () => {
+    return (dispatch) => {
+        return dispatch({
+            type: IS_LOADING
         })
     }
 }

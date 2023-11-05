@@ -11,7 +11,9 @@ import {
     RATING_ORDER,
     RESET,
     GET_DETAIL,
-    CLEAN_DETAIL
+    CLEAN_DETAIL,
+    IS_LOADING,
+    IS_NOT_LOADING
 } from '../actions/action-types';
 
 //utils
@@ -25,13 +27,18 @@ const initialState = {
     videogames: [],
     allVideogames: [],
     copyAllVideogames: [],
+
     resetAllVideogames: [], //only reset button / not api call
+
     detailVideogame: {},
 
+    //aux handlers
     maxPage: 0,
     byName: false,
     error: '',
+    isLoading: false,
 
+    //aux info
     allGenres: [],
     allPlatforms: []
 };
@@ -112,6 +119,10 @@ function reducer(state = initialState, action) {
                 ...state,
                 detailVideogame: {}
             }
+
+        case IS_LOADING:
+            if(state.isLoading) return { ...state, isLoading: false }
+            return { ...state, isLoading: true }
 
         default: return {...state};
     }

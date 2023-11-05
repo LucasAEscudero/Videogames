@@ -1,9 +1,8 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
 
 //redux
-import { getDetail, cleanDetail } from "../../redux/actions/actions";
+import { getDetail, cleanDetail, loading } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 //components
@@ -16,16 +15,20 @@ import styles from './Detail.module.css';
 
 function Detail() {
     const { id } = useParams();
+    
+    //redux
     const dispatch = useDispatch();
     const videogame = useSelector(state => state.detailVideogame);
+    const isLoading = useSelector(state => state.isLoading);
+    
+    //string with \n to array
     const description = videogame.description?.split('\n\n');
-    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         (async () => {
-            setIsLoading(true);
+            dispatch(loading());
             await dispatch(getDetail(id));
-            setIsLoading(false);
+            dispatch(loading());
         })();
 
         return () => dispatch(cleanDetail());

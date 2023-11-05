@@ -6,7 +6,7 @@ function Options({ name, values, onChange }) {
             <select name={name} onChange={onChange} className={styles.select}>
                 {
                     values?.map(value => {
-                        return <option value={value}>{value}</option>
+                        return <option key={value} value={value}>{value}</option>
                     })
                 }
             </select>

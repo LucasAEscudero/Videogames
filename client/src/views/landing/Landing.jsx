@@ -4,8 +4,7 @@ import wallpaper from './assets/wallpaper.jpg'
 //styles
 import styles from './Landing.module.css'
 
-function Landing({ handleEntry }) {
-
+function Landing() {
     return(
         <div className={styles.landing}>
 

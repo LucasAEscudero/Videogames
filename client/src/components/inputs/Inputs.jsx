@@ -1,7 +1,7 @@
 //styles
 import styles from './Inputs.module.css'
 
-function Inputs({ name, type, input, handleChange, placeholder, errors, labelAux, step }) {
+function Inputs({ name, type, input, handleChange, placeholder, errors, labelAux, step, min }) {
     const firstLetter = labelAux ? labelAux.charAt(0).toUpperCase() : name.charAt(0).toUpperCase();
     const restWord = labelAux ? labelAux.slice(1) : name.slice(1);
 
@@ -39,18 +39,19 @@ function Inputs({ name, type, input, handleChange, placeholder, errors, labelAux
                     value={input[name]}
                     onChange={handleChange}
                     placeholder={placeholder}
+                    min={min}
                 />
             }
             {/* number */}
             {
                 type === 'number' &&
                 <input
-                type={type}
-                name={name}
-                step={step}
-                value={input[name]}
-                onChange={handleChange}
-                placeholder={placeholder}
+                    type={type}
+                    name={name}
+                    step={step}
+                    value={input[name]}
+                    onChange={handleChange}
+                    placeholder={placeholder}
                 />
             }
             { errors[name] != '' && <p className={styles.errors}>{errors[name]}</p> }

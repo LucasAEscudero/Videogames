@@ -17,8 +17,8 @@ function validations(input) {
 
     //description validation
     if(input.description){
-        if(input.description.length < 2) 
-        errors.description = '*Must contain more than two characters';
+        if(input.description.length < 10) 
+        errors.description = '*Must contain more than ten characters';
 
         //before validations
         if(input.name === '') errors.name = '*The field cannot be empty';
@@ -51,7 +51,7 @@ function validations(input) {
     if(input.rating){
         if(Number(input.rating) < 0) errors.rating = '*Must be more than 0';
         if(Number(input.rating) > 5) errors.rating = '*Must be less than 5';
-        if(!Number(input.rating)) errors.rating = '*Must be a number';
+        if(!Number(input.rating) && Number(input.rating) != 0) errors.rating = '*Must be a number';
      
         //before validations
         if(input.name === '') errors.name = '*The field cannot be empty';

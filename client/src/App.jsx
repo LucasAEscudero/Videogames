@@ -35,7 +35,7 @@ function App() {
   const maxApiPage = 5;
   const [isLoading, SetIsLoading] = useState(false);
 
-  const videogames = useSelector(state => state.videogames);
+  // const videogames = useSelector(state => state.videogames);
   const maxPage = useSelector(state => state.maxPage);
   const genres = useSelector(state => state.allGenres);
   const platforms = useSelector(state => state.allPlatforms);
@@ -124,7 +124,6 @@ function App() {
 
         <Route path='/home' element={
         <Home 
-          videogames={videogames} 
           handlePages={handlePages} 
           page={page}
           maxPage={maxPage}
@@ -134,7 +133,13 @@ function App() {
         />
         }/>
         <Route path='/detail/:id' element={<Detail />}/>
-        <Route path='/create' element={<Create genres={genres} platforms={platforms}/>}/>
+        <Route path='/create' element={
+          <Create 
+            genres={genres} 
+            platforms={platforms} 
+            maxApiPage={maxApiPage}
+          />
+        }/>
 
         <Route path='*' element={<Error error="Error 404"/>}/>
       </Routes>

@@ -11,19 +11,17 @@ import Error from '../error/Error';
 //styles
 import styles from './Home.module.css'
 
-function Home({ videogames, handlePages, page, maxPage, handlerOptions, genres, isLoading }) {
+function Home({ handlePages, page, maxPage, handlerOptions, genres, isLoading }) {
+    //redux
     const dispatch = useDispatch();
     const byName = useSelector(state => state.byName);
     const error = useSelector(state => state.error);
+    const videogames = useSelector(state => state.videogames)
 
     const resetFilters = () => {        
         dispatch(reset());
-        dispatch(renderVideogames(1))
+        dispatch(renderVideogames(1));
     }
-    // console.log(isLoading, videogames, genres)
-
-    
-    console.log(maxPage, page)
 
     if(isLoading) return(<div><Loading /></div>)
         
@@ -94,7 +92,7 @@ function Home({ videogames, handlePages, page, maxPage, handlerOptions, genres, 
                         value="previous" 
                         onClick={handlePages}
                         disabled={page === 1}
-                    >Previous</button>
+                    >Prev</button>
                     <label htmlFor='page'>Page {page}</label>
                     <button 
                         value="next" 

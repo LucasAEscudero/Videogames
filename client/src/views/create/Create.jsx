@@ -1,16 +1,22 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import { getVideogames, renderVideogames, loading } from '../../redux/actions/actions';
 import axios from 'axios';
 
+//components
 import Inputs from '../../components/inputs/Inputs';
 import CheckboxList from '../../components/checkboxList/CheckboxList';
+import Notification from '../../components/notification/Notification';
+import Loading from '../../components/loading/Loading';
+
+//aux
 import validations from './validations';
 
 //styles
 import styles from './Create.module.css';
-import Notification from '../../components/notification/Notification';
 
 
-function Create({ genres, platforms }) {
+function Create({ genres, platforms, maxApiPage }) {
     const [input, setInput] = useState({
         name: '',
         image: '',
@@ -21,7 +27,6 @@ function Create({ genres, platforms }) {
         genres: {},
         detectChanges: 0
     });
-
     const [errors, setErrors] = useState({});
 
     const [notification, setNotification] = useState({
@@ -30,6 +35,10 @@ function Create({ genres, platforms }) {
         type: ""
     });
 
+    const dispatch = useDispatch();
+    const isLoading = useSelector(state => state.isLoading);
+
+    //inputs handler
     const handleChange = (event) => {
         setInput({
             ...input,
@@ -37,6 +46,7 @@ function Create({ genres, platforms }) {
         })
     }
 
+    //checkbox handler
     const handleCheckbox = (event) => {
         setInput({
             ...input,
@@ -48,6 +58,7 @@ function Create({ genres, platforms }) {
         })
     }
 
+    //submit handler
     const handleSubmit = async (event) => {
         event.preventDefault();
         
@@ -57,7 +68,7 @@ function Create({ genres, platforms }) {
             description: input.description,
             platforms: [],
             released: input.released,
-            rating: Number(input.rating), //it is a float
+            rating: Number(input.rating), //it's a float
             genresName: []
         }
 
@@ -85,14 +96,8 @@ function Create({ genres, platforms }) {
                 setTimeout(() => setNotification({ state: false }), 5000);
             }
             else {
-                setNotification({ 
-                    state: true, 
-                    message: data,
-                    type: "possitive"
-                });
-
-                setTimeout(() => setNotification({ state: false }), 5000);
-    
+                dispatch(loading());
+                
                 setInput({
                     name: '',
                     image: '',
@@ -102,6 +107,19 @@ function Create({ genres, platforms }) {
                     rating: '',
                     genres: {}
                 });
+                
+                await dispatch(getVideogames(maxApiPage));
+                await dispatch(renderVideogames(1));
+                
+                dispatch(loading());
+
+                setNotification({ 
+                    state: true, 
+                    message: data,
+                    type: "possitive"
+                });
+                
+                setTimeout(() => setNotification({ state: false }), 5000);
             }
         }
         catch(error){
@@ -129,7 +147,10 @@ function Create({ genres, platforms }) {
 
         setErrors(validations(input));
     }, [input])
+
+    if(isLoading) return(<div><Loading /></div>)
     
+    //to render
     return(
         <div className={styles.form}>
             <h2>Create your videogame</h2>
@@ -182,16 +203,18 @@ function Create({ genres, platforms }) {
                     placeholder='The released date...'
                     errors={errors}
                     labelAux='released date'
+                    min='1958-10-18'
                 />
 
                 {/* rating input */}
                 <Inputs
                     name='rating'
-                    type='text'
+                    type='number'
+                    step={0.1}
                     input={input}
                     handleChange={handleChange}
                     placeholder='The game rating...'
-                    errors={errors}   
+                    errors={errors}
                 />
 
                 {/* genres checkbox */}
