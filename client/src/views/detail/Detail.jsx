@@ -2,8 +2,13 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+//redux
+import { getDetail, cleanDetail } from "../../redux/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+
 //components
 import DetailArrays from "../../components/detailArrays/DetailArrays";
+import Loading from "../../components/loading/Loading";
 
 //styles
 import styles from './Detail.module.css';
@@ -11,21 +16,22 @@ import styles from './Detail.module.css';
 
 function Detail() {
     const { id } = useParams();
-    const [videogame, setVideogame] = useState({});
+    const dispatch = useDispatch();
+    const videogame = useSelector(state => state.detailVideogame);
     const description = videogame.description?.split('\n\n');
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        ( async () => {
-            try{
-                const response = await axios(`http://localhost:3001/videogames/${id}`);
-
-                setVideogame({ ...response.data });
-            }
-            catch(error){
-                throw Error(error.message)
-            }
+        (async () => {
+            setIsLoading(true);
+            await dispatch(getDetail(id));
+            setIsLoading(false);
         })();
+
+        return () => dispatch(cleanDetail());
     }, []);
+
+    if(isLoading) return(<div><Loading /></div>)
 
     return(
         <div className={styles.videogameDetail}>

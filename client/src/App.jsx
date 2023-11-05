@@ -1,6 +1,6 @@
 //react
 import { useState, useEffect } from 'react'
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 
 //redux
 import { useSelector, useDispatch } from 'react-redux'
@@ -22,7 +22,6 @@ import Landing from './views/landing/Landing'
 
 import Nav from './components/navbar/NavBar'
 import Error from './views/error/Error'
-import Notification from './components/notification/Notification'
 
 
 //styles
@@ -67,8 +66,9 @@ function App() {
 
   //pages handlers - home
   const handlePages = (event) => {
+    // console.log(maxPage)
     if(event.target.value === 'previous' && page > 1) setPage(page - 1);
-    if(event.target.value === 'next' && page < maxPage + 1) setPage(page + 1);
+    if(event.target.value === 'next' && page < maxPage) setPage(page + 1);
   }
 
   //handler videogames load by pages - home
@@ -127,6 +127,7 @@ function App() {
           videogames={videogames} 
           handlePages={handlePages} 
           page={page}
+          maxPage={maxPage}
           handlerOptions={handlerOptions}
           genres={genres}
           isLoading={isLoading}

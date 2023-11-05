@@ -3,6 +3,7 @@ export const GET_VIDEOGAMES = 'GET_VIDEOGAMES';
 export const GET_GENRES = 'GET_GENRES';
 export const GET_PLATFORMS = 'GET_PLATFORMS';
 export const RENDER_VIDEOGAMES = 'RENDER_VIDEOGAMES';
+export const GET_DETAIL = 'GET_DETAIL';
 
 //filter / order
 export const NAME_ORDER = 'NAME_ORDER'
@@ -14,4 +15,5 @@ export const GENRES_VIDEOGAMES = 'GENRES_VIDEOGAMES'
 export const ORIGIN_VIDEOGAMES = 'ORIGIN_VIDEOGAMES';
 
 //reset
+export const CLEAN_DETAIL = 'CLEAN_DETAIL';
 export const RESET = 'RESET';

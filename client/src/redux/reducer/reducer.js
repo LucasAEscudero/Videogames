@@ -9,7 +9,9 @@ import {
     ORIGIN_VIDEOGAMES,
     NAME_ORDER,
     RATING_ORDER,
-    RESET
+    RESET,
+    GET_DETAIL,
+    CLEAN_DETAIL
 } from '../actions/action-types';
 
 //utils
@@ -19,19 +21,19 @@ import originVideogames from '../utils/originVideogames';
 import nameVideogames from '../utils/nameVideogames';
 
 const initialState = {
+    //to render
     videogames: [],
     allVideogames: [],
     copyAllVideogames: [],
-    resetAllVideogames: [],
+    resetAllVideogames: [], //only reset button / not api call
+    detailVideogame: {},
 
-    bdVideogames: [],
-    apiVideogames: [],
     maxPage: 0,
     byName: false,
     error: '',
 
-    // allGenres: [],
-    // allPlatforms: [],
+    allGenres: [],
+    allPlatforms: []
 };
 
 function reducer(state = initialState, action) {
@@ -43,9 +45,7 @@ function reducer(state = initialState, action) {
                 allVideogames: [...action.payload],
                 copyAllVideogames: [...action.payload],
                 resetAllVideogames: [...action.payload],
-                // bdVideogames: [...action.payload].filter(game => game.origin === 'BD'),
-                // apiVideogames: [...action.payload].filter(game => game.origin === 'API'),
-                
+       
                 error: '',
                 byName: false
             };
@@ -68,8 +68,14 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 videogames: [...state.allVideogames].slice(action.payload, action.payload + 15),
-                maxPage: Math.floor(state.allVideogames.length / 15)
+                maxPage: Math.ceil(state.allVideogames.length / 15)
             };
+
+        case GET_DETAIL:
+            return {
+                ...state,
+                detailVideogame: {...action.payload}
+            }
 
         case GENRES_VIDEOGAMES: 
             return {
@@ -97,8 +103,15 @@ function reducer(state = initialState, action) {
         case RESET:
             return{
                 ...state,
-                allVideogames: [...state.resetAllVideogames]
+                allVideogames: [...state.resetAllVideogames],
+                copyAllVideogames: [...state.resetAllVideogames]
             };
+
+        case CLEAN_DETAIL:
+            return {
+                ...state,
+                detailVideogame: {}
+            }
 
         default: return {...state};
     }

@@ -1,6 +1,11 @@
 .home{
     display: flex;
     flex-direction: column;
+    /* padding-bottom: 40px; */
+}
+
+.space{
+    padding-bottom: 40px;
 }
 
 .options{

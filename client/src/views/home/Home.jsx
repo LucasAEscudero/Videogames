@@ -11,7 +11,7 @@ import Error from '../error/Error';
 //styles
 import styles from './Home.module.css'
 
-function Home({ videogames, handlePages, page, handlerOptions, genres, isLoading }) {
+function Home({ videogames, handlePages, page, maxPage, handlerOptions, genres, isLoading }) {
     const dispatch = useDispatch();
     const byName = useSelector(state => state.byName);
     const error = useSelector(state => state.error);
@@ -21,6 +21,9 @@ function Home({ videogames, handlePages, page, handlerOptions, genres, isLoading
         dispatch(renderVideogames(1))
     }
     // console.log(isLoading, videogames, genres)
+
+    
+    console.log(maxPage, page)
 
     if(isLoading) return(<div><Loading /></div>)
         
@@ -85,12 +88,23 @@ function Home({ videogames, handlePages, page, handlerOptions, genres, isLoading
             </div>
         
             { 
-                !byName &&
+                !byName ?
                 <div className={styles.navigate}>
-                    <button value="previous" onClick={handlePages}>Previous</button>
-                    <label htmlFor="">Page {page}</label>
-                    <button value="next" onClick={handlePages}>Next</button>
-                </div>
+                    <button 
+                        value="previous" 
+                        onClick={handlePages}
+                        disabled={page === 1}
+                    >Previous</button>
+                    <label htmlFor='page'>Page {page}</label>
+                    <button 
+                        value="next" 
+                        onClick={handlePages}
+                        disabled={page === maxPage || maxPage === 0}
+                    >Next</button>
+                </div> 
+                :
+                <div className={styles.space}></div>
+
             }
         </div>
     )

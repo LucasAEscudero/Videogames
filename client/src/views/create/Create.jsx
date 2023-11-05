@@ -205,12 +205,12 @@ function Create({ genres, platforms }) {
                 
                 <button
                     type="submit"
-                    // disabled={
-                    //     !input.name || !input.image || !input.description || !input.platforms
-                    //     || !input.released || !input.rating || !input.genres || errors.name 
-                    //     || errors.image || errors.description || errors.platforms || 
-                    //     errors.released || errors.rating || errors.genres
-                    // }
+                    disabled={
+                        !input.name || !input.image || !input.description || !input.platforms
+                        || !input.released || !input.rating || !input.genres || errors.name 
+                        || errors.image || errors.description || errors.platforms || 
+                        errors.released || errors.rating || errors.genres
+                    }
                     onClick={handleSubmit}
                 >
                     Submit

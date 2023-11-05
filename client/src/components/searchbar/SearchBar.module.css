@@ -16,6 +16,13 @@
 .search > .lastButton{
     border-top-right-radius: 22px;
     border-bottom-right-radius: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lastButton > img{
+    width: 20px;
 }
 
 .search > input{

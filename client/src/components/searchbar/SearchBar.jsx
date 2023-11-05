@@ -3,6 +3,7 @@ import { useState } from "react"
 import { useDispatch } from "react-redux";
 import { renderVideogames, getVideogames, searchVideogamesName } from "../../redux/actions/actions";
 
+import rechargeIcon from './assets/rechargeIcon.png'
 import styles from './SearchBar.module.css'
 
 function SearchBar({ maxApiPage, setPage, setIsLoading }) {
@@ -33,7 +34,9 @@ function SearchBar({ maxApiPage, setPage, setIsLoading }) {
         <div className={styles.search}>
             <input type="text" value={input} onChange={handleInput}/>
             <button onClick={handleSubmit}>Search</button>
-            <button onClick={handleReset} className={styles.lastButton}>Reset Search</button>
+            <button onClick={handleReset} className={styles.lastButton}>
+                <img src={rechargeIcon} alt="rechargeIcon" />
+            </button>
         </div>
     )
 }
