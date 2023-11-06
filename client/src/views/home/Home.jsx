@@ -147,7 +147,7 @@ function Home({ page, setPage, handlerPages }) {
                         onClick={handlerPages}
                         disabled={page === 1}
                     >Prev</button>
-                    <label htmlFor='page'>Page {page}</label>
+                    <label htmlFor='page'>Page {page} of {maxPage}</label>
                     <button 
                         value="next" 
                         onClick={handlerPages}

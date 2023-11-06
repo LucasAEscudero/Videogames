@@ -3,7 +3,7 @@ const cleanInput = (setInput) => {
         name: '',
         image: '',
         description: '',
-        platforms: {},
+        platforms: [],
         released: '',
         rating: '',
         genres: {}

@@ -11,16 +11,42 @@
     margin: 0;
 }
 
-.content{
-    position: absolute;
-    width: 100vw;
-    margin-top: 5em;
-}
-
-.title{
-    color: #b14107;
+.enter{
+  position: fixed;
+  right: 46vw;
+  top: 70px;
 }
 
 .enter > button{
-    background-color: #1b7a1b;
+    background-color: #000;
+    padding-left: 30px;
+    padding-right: 30px;  
 }
+
+.enter > button:hover{
+    animation: 1.5s start;
+    animation-fill-mode: forwards;
+}
+
+@keyframes start{
+    100%{
+        box-shadow: 0 0 30px #4155c0;
+        background-color: #4155c0;
+    }
+}
+
+/* .content{
+    position: fixed;
+    top: 75px;
+    left: 40px;
+}
+
+.title{
+    font-size: 50px;
+    color: #b10406;
+    padding-bottom: 0;
+}
+
+.enter > button{
+    background-color: #353535;
+} */

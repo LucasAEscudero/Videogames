@@ -24,7 +24,7 @@ function Create({ maxApiPage }) {
         name: '',
         image: '',
         description: '',
-        platforms: {},
+        platforms: [],
         released: '',
         rating: '',
         genres: {},
@@ -45,15 +45,38 @@ function Create({ maxApiPage }) {
     const platforms = useSelector(state => state.allPlatforms);
 
     //inputs handler
-    const handleChange = (event) => {
+    const handlerChange = (event) => {
         setInput({
             ...input,
             [event.target.name]: event.target.value
         })
     }
 
+    const handlerSelect = (event) => {
+        if(
+            !input[event.target.name].find(date => {
+                return date === event.target.value;
+            })
+        ){
+            setInput({
+                ...input,
+                [event.target.name]: [...input[event.target.name], event.target.value]
+            })
+        }
+
+        
+    }
+
+    const deleteLastOption = (event) => {
+        setInput({
+            ...input,
+            [event.target.name]: 
+            input[event.target.name].slice(0, input[event.target.name].length - 1)
+        })
+    }
+
     //checkbox handler
-    const handleCheckbox = (event) => {
+    const handlerCheckbox = (event) => {
         setInput({
             ...input,
             [event.target.name]: { 
@@ -63,10 +86,6 @@ function Create({ maxApiPage }) {
             detectChanges: input.detectChanges + 1
         })
     }
-
-    // const handleSelect = (event) => {
-
-    // }
 
     //submit handler
     const handleSubmit = async (event) => {
@@ -126,12 +145,7 @@ function Create({ maxApiPage }) {
     }
 
     //delete false desclicks in checkbox
-    useEffect(() => {
-        if(input.chan)
-        for(let key in input.platforms){
-            if(!input.platforms[key]) delete input.platforms[key];
-        }
-        
+    useEffect(() => {      
         for(let key in input.genres){
             if(!input.genres[key]) delete input.genres[key];
         }
@@ -145,13 +159,14 @@ function Create({ maxApiPage }) {
     return(
         <div className={styles.form}>
             <h2>Create your videogame</h2>
+            <hr />
             <form>
                 {/* name input */}
                 <Inputs
                     name='name'
                     type='text'
                     input={input}
-                    handleChange={handleChange}
+                    handleChange={handlerChange}
                     placeholder='The game name...'
                     errors={errors}
                 />
@@ -161,7 +176,7 @@ function Create({ maxApiPage }) {
                     name='image'
                     type='text'
                     input={input}
-                    handleChange={handleChange}
+                    handleChange={handlerChange}
                     placeholder='The image url...'
                     errors={errors}
                 />
@@ -171,26 +186,40 @@ function Create({ maxApiPage }) {
                     name='description'
                     type='textarea'
                     input={input}
-                    handleChange={handleChange}
+                    handleChange={handlerChange}
                     placeholder='The game description...'
                     errors={errors}
                 />
 
-                {/* platforms checkbox */}
-                <CheckboxList 
-                    name="platforms" 
-                    array={platforms} 
-                    handleChange={handleCheckbox}
-                    input={input}
-                    errors={errors}
-                />
+                {/* platforms select */}
+                <div className={styles.select}>
+                    <label>Platforms: </label>
+                    <Options 
+                        name='platforms'
+                        values={platforms}
+                        onChange={handlerSelect}
+                        input={input.platforms}
+                    />
+                    <p style={{color: '#9B9BA1'}}> Selected: {
+                            input.platforms?.map((data, i) => {
+                                if(input.platforms.length - 1 === i) return data;
+                                return `${data}, `;
+                            })
+                        }
+                    </p>
+                    <button type='reset' name='platforms' onClick={deleteLastOption}>
+                        Delete last platform
+                    </button>
+                    { errors.platforms != '' && <p className={styles.errors}>{errors.platforms}</p> }
+                    <hr style={{ borderStyle: "none" }}/>
+                </div>
 
                 {/* released input */}
                 <Inputs
                     name='released'
                     type='date'
                     input={input}
-                    handleChange={handleChange}
+                    handleChange={handlerChange}
                     placeholder='The released date...'
                     errors={errors}
                     labelAux='released date'
@@ -203,7 +232,7 @@ function Create({ maxApiPage }) {
                     type='number'
                     step={0.1}
                     input={input}
-                    handleChange={handleChange}
+                    handleChange={handlerChange}
                     placeholder='The game rating...'
                     errors={errors}
                 />
@@ -212,7 +241,7 @@ function Create({ maxApiPage }) {
                 <CheckboxList
                     name="genres" 
                     array={genres} 
-                    handleChange={handleCheckbox}
+                    handleChange={handlerCheckbox}
                     input={input}
                     errors={errors}
                 />

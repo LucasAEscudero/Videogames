@@ -26,8 +26,8 @@ function validations(input) {
     } 
 
     //platforms validation
-    if(Object.keys(input.platforms).length){
-        if(Object.keys(input.platforms).length < 1) 
+    if(input.platforms.length){
+        if(!input.platforms.length) 
         errors.platforms = '*One platform must be selected as a minimum';
 
         //before validations
@@ -44,7 +44,7 @@ function validations(input) {
         if(input.name === '') errors.name = '*The field cannot be empty';
         if(input.image === '') errors.image = '*The field cannot be empty';
         if(input.description === '') errors.description = '*The field cannot be empty';
-        if(!Object.keys(input.platforms).length) errors.platforms = '*The field cannot be empty';
+        if(!input.platforms.length) errors.platforms = '*One platform must be selected as a minimum';
     }
 
     //rating validation
@@ -57,7 +57,7 @@ function validations(input) {
         if(input.name === '') errors.name = '*The field cannot be empty';
         if(input.image === '') errors.image = '*The field cannot be empty';
         if(input.description === '') errors.description = '*The field cannot be empty';
-        if(!Object.keys(input.platforms).length) errors.platforms = '*The field cannot be empty';
+        if(!input.platforms.length) errors.platforms = '*One platform must be selected as a minimum';
         if(input.released === '') errors.released= '*The field cannot be empty';
     }
 
@@ -70,7 +70,7 @@ function validations(input) {
         if(input.name === '') errors.name = '*The field cannot be empty';
         if(input.image === '') errors.image = '*The field cannot be empty';
         if(input.description === '') errors.description = '*The field cannot be empty';
-        if(!Object.keys(input.platforms).length) errors.platforms = '*The field cannot be empty';
+        if(!input.platforms.length) errors.platforms = '*One platform must be selected as a minimum';
         if(input.released === '') errors.released= '*The field cannot be empty';
         if(input.rating === '') errors.rating = '*The field cannot be empty';
     }

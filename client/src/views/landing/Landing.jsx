@@ -7,12 +7,8 @@ import styles from './Landing.module.css'
 function Landing() {
     return(
         <div className={styles.landing}>
-
             <img className={styles.wallpaper} src={wallpaper} alt="wallpaper" />
-            <div className={styles.content}>
-                <h2 className={styles.title}>Henry Videogames</h2>
-                <Link to='/home' className={styles.enter}><button>Enter</button></Link>
-            </div>
+            <Link to='/home' className={styles.enter}><button>Enter</button></Link>
         </div>
     )
 }

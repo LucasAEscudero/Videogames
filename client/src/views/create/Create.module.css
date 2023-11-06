@@ -9,6 +9,25 @@
 
 .form > h2{
     text-align: start;
+    margin-bottom: 0;
+    font-size: 35px;
+}
+
+.errors{
+    color: rgb(201, 0, 0);
+    font-weight: 100;
+}
+
+.select{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-bottom: 0;
+}
+
+.select > button{
+    background-color: hsla(0,0%,100%,.1);
+    margin-bottom: 0;
 }
 
 /* .notification{
