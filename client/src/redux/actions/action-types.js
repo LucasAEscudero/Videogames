@@ -20,4 +20,3 @@ export const RESET = 'RESET';
 //to render
 export const RENDER_VIDEOGAMES = 'RENDER_VIDEOGAMES';
 export const IS_LOADING = 'IS_LOADING';
-export const IS_NOT_LOADING = 'IS_NOT_LOADING';

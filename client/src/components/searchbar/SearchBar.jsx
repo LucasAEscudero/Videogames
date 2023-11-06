@@ -1,13 +1,14 @@
 import { useState } from "react"
 
 import { useDispatch } from "react-redux";
-import { renderVideogames, getVideogames, searchVideogamesName } from "../../redux/actions/actions";
+import { renderVideogames, getVideogames, searchVideogamesName, loading  } from "../../redux/actions/actions";
 
 import rechargeIcon from './assets/rechargeIcon.png'
 import styles from './SearchBar.module.css'
 
-function SearchBar({ maxApiPage, setPage, setIsLoading }) {
+function SearchBar({ maxApiPage, setPage }) {
     const [input, setInput] = useState("");
+
     const dispatch = useDispatch();
 
     const handleInput = (event) => {
@@ -15,19 +16,19 @@ function SearchBar({ maxApiPage, setPage, setIsLoading }) {
     }
 
     const handleSubmit = async () => {
-        setIsLoading(true);
+        dispatch(loading());
         await dispatch(searchVideogamesName(input));
         dispatch(renderVideogames(1));
         setPage(1);
-        setIsLoading(false);
+        dispatch(loading());
     }
 
     const handleReset = async () => {
-        setIsLoading(true);
+        dispatch(loading());
         setInput("");
         await dispatch(getVideogames(maxApiPage));
         await dispatch(renderVideogames(1));
-        setIsLoading(false);
+        dispatch(loading());
     }
 
     return(

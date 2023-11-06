@@ -12,7 +12,8 @@ import {
   nameOrder, 
   originFilter, 
   ratingOrder, 
-  renderVideogames 
+  renderVideogames,
+  loading
 } from './redux/actions/actions'
 
 //components
@@ -30,43 +31,34 @@ import Create from './views/create/Create'
 
 function App() {
   //hooks
-  const dispatch = useDispatch();
   const [page, setPage] = useState(1)
   const maxApiPage = 5;
-  const [isLoading, SetIsLoading] = useState(false);
-
-  // const videogames = useSelector(state => state.videogames);
-  const maxPage = useSelector(state => state.maxPage);
-  const genres = useSelector(state => state.allGenres);
-  const platforms = useSelector(state => state.allPlatforms);
-  // const renderVid = videogames.slice(((page-1)*15), ((page-1)*15) + 15);
-  // const renderVid = useSelector(state => state.renderVideogames)
+  // const [options, setOptions] = useState({
+  //   genres: "",
+  //   origin: "API+BD",
+  //   name: "",
+  //   rating: "",
+  //   change: "",
+  //   cChanges: 0
+  // });
   
-  //handlerOptions
-  const [options, setOptions] = useState({
-    genres: "",
-    origin: "API+BD",
-    name: "",
-    rating: "",
-    change: "",
-    cChanges: 0
-  });
-
-  //load first videogames - home
+  //redux
+  const dispatch = useDispatch();
+  const maxPage = useSelector(state => state.maxPage);
+  
+  //load data
   useEffect(() => {
     (async () => {
-      SetIsLoading(true);
+      dispatch(loading());
       await dispatch(getVideogames(maxApiPage));
       await dispatch(renderVideogames(page));
       await dispatch(getGenres());
       await dispatch(getPlatforms());
-      SetIsLoading(false);
+      dispatch(loading());
     })();
   }, [])
 
-  //pages handlers - home
-  const handlePages = (event) => {
-    // console.log(maxPage)
+  const handlerPages = (event) => {
     if(event.target.value === 'previous' && page > 1) setPage(page - 1);
     if(event.target.value === 'next' && page < maxPage) setPage(page + 1);
   }
@@ -77,69 +69,59 @@ function App() {
   }, [page])
 
   //handler source videogames (API / BD) - home
-  const handlerOptions = (event) => {
-    setOptions({
-      ...options,
-      [event.target.name]: event.target.value,
-      change: event.target.name,
-      cChanges: options.cChanges + 1
-    });
-  }
+  // const handlerOptions = (event) => {
+  //   setOptions({
+  //     ...options,
+  //     [event.target.name]: event.target.value,
+  //     change: event.target.name,
+  //     cChanges: options.cChanges + 1
+  //   });
+  // }
 
-  useEffect(() => {
-    // dispatch(renderVideogames(page));
-    switch(options.change){
-      case "genres": 
-        dispatch(genresFilter(options.genres));
-        dispatch(renderVideogames(1));
-        setPage(1);
-        break;
-      case "origin":
-        dispatch(originFilter(options.origin));
-        dispatch(renderVideogames(1));
-        setPage(1);
-        break;
-      case "name": 
-        dispatch(nameOrder(options.name));
-        dispatch(renderVideogames(1));
-        setPage(1);
-        break;
-      case "rating": 
-        dispatch(ratingOrder(options.rating));
-        dispatch(renderVideogames(1));
-        setPage(1);
-        break;
-    }
+  // useEffect(() => {
+  //   switch(options.change){
+  //     case "genres": 
+  //       dispatch(genresFilter(options.genres));
+  //       dispatch(renderVideogames(1));
+  //       setPage(1);
+  //       break;
+  //     case "origin":
+  //       dispatch(originFilter(options.origin));
+  //       dispatch(renderVideogames(1));
+  //       setPage(1);
+  //       break;
+  //     case "name": 
+  //       dispatch(nameOrder(options.name));
+  //       dispatch(renderVideogames(1));
+  //       setPage(1);
+  //       break;
+  //     case "rating": 
+  //       dispatch(ratingOrder(options.rating));
+  //       dispatch(renderVideogames(1));
+  //       setPage(1);
+  //       break;
+  //   }
 
-  }, [options.cChanges]);
+  // }, [options.cChanges]);
 
   return(
     <div>
       { 
         useLocation().pathname !== '/' && 
-        <Nav maxApiPage={maxApiPage} setPage={setPage} setIsLoading={SetIsLoading} />
+        <Nav maxApiPage={maxApiPage} setPage={setPage} />
       }
       <Routes>
         <Route path='/' element={<Landing />}/>
 
         <Route path='/home' element={
         <Home 
-          handlePages={handlePages} 
           page={page}
-          maxPage={maxPage}
-          handlerOptions={handlerOptions}
-          genres={genres}
-          isLoading={isLoading}
+          setPage={setPage}
+          handlerPages={handlerPages} 
         />
         }/>
         <Route path='/detail/:id' element={<Detail />}/>
-        <Route path='/create' element={
-          <Create 
-            genres={genres} 
-            platforms={platforms} 
-            maxApiPage={maxApiPage}
-          />
-        }/>
+        <Route path='/create' element={<Create maxApiPage={maxApiPage} />}/>
 
         <Route path='*' element={<Error error="Error 404"/>}/>
       </Routes>

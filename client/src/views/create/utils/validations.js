@@ -57,7 +57,7 @@ function validations(input) {
         if(input.name === '') errors.name = '*The field cannot be empty';
         if(input.image === '') errors.image = '*The field cannot be empty';
         if(input.description === '') errors.description = '*The field cannot be empty';
-        if(input.platforms.length === 0) errors.platforms = '*The field cannot be empty';
+        if(!Object.keys(input.platforms).length) errors.platforms = '*The field cannot be empty';
         if(input.released === '') errors.released= '*The field cannot be empty';
     }
 

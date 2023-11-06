@@ -12,8 +12,7 @@ import {
     RESET,
     GET_DETAIL,
     CLEAN_DETAIL,
-    IS_LOADING,
-    IS_NOT_LOADING
+    IS_LOADING
 } from '../actions/action-types';
 
 //utils
@@ -87,18 +86,18 @@ function reducer(state = initialState, action) {
         case GENRES_VIDEOGAMES: 
             return {
                 ...state,
-                allVideogames: [...state.allVideogames].filter(game => {
+                allVideogames: [...state.copyAllVideogames].filter(game => {
                     return game.genres?.find(genre => genre === action.payload);
                 }),
-                copyAllVideogames: [...state.allVideogames].filter(game => {
+                copyAllVideogames: [...state.copyAllVideogames].filter(game => {
                     return game.genres?.find(genre => genre === action.payload);
                 })
             };
 
+        case ORIGIN_VIDEOGAMES: return originVideogames(state, action.payload);
+            
             //load videogames with the name input
         case NAME_VIDEOGAMES: return nameVideogames(state, action.payload);
-
-        case ORIGIN_VIDEOGAMES: return originVideogames(state, action.payload);
 
         //order videogames by name
         case NAME_ORDER: return nameOrder(state, action.payload);

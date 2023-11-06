@@ -5,18 +5,21 @@ import axios from 'axios';
 
 //components
 import Inputs from '../../components/inputs/Inputs';
+import Options from '../../components/options/Options';
 import CheckboxList from '../../components/checkboxList/CheckboxList';
 import Notification from '../../components/notification/Notification';
 import Loading from '../../components/loading/Loading';
 
 //aux
-import validations from './validations';
+import validations from './utils/validations';
+import modelToPost from './utils/modelToPost';
+import cleanInput from './utils/cleanInput';
 
 //styles
 import styles from './Create.module.css';
 
 
-function Create({ genres, platforms, maxApiPage }) {
+function Create({ maxApiPage }) {
     const [input, setInput] = useState({
         name: '',
         image: '',
@@ -35,8 +38,11 @@ function Create({ genres, platforms, maxApiPage }) {
         type: ""
     });
 
+    //redux
     const dispatch = useDispatch();
     const isLoading = useSelector(state => state.isLoading);
+    const genres = useSelector(state => state.allGenres);
+    const platforms = useSelector(state => state.allPlatforms);
 
     //inputs handler
     const handleChange = (event) => {
@@ -58,29 +64,24 @@ function Create({ genres, platforms, maxApiPage }) {
         })
     }
 
+    // const handleSelect = (event) => {
+
+    // }
+
     //submit handler
     const handleSubmit = async (event) => {
         event.preventDefault();
         
-        const toPost = { //create the model to post
-            name: input.name,
-            image: input.image,
-            description: input.description,
-            platforms: [],
-            released: input.released,
-            rating: Number(input.rating), //it's a float
-            genresName: []
-        }
-
-        for(let key in input.platforms){ //add platforms
-            if(input.platforms[key]) toPost.platforms.push(key);
-        }
-
-        for(let key in input.genres){ //add genres
-            if(input.genres[key]) toPost.genresName.push(key);
-        }
-
-        //post request
+        const toPost = modelToPost(
+            input.name, 
+            input.image,
+            input.description,
+            input.platforms,
+            input.released,
+            input.rating,
+            input.genres
+        );
+    
         try{
             const { data } = await axios.post(`http://localhost:3001/videogames`, toPost);
             
@@ -92,22 +93,12 @@ function Create({ genres, platforms, maxApiPage }) {
                     message: data,
                     type: "error"
                 });
-
                 setTimeout(() => setNotification({ state: false }), 5000);
             }
             else {
                 dispatch(loading());
                 
-                setInput({
-                    name: '',
-                    image: '',
-                    description: '',
-                    platforms: {},
-                    released: '',
-                    rating: '',
-                    genres: {}
-                });
-                
+                cleanInput(setInput);
                 await dispatch(getVideogames(maxApiPage));
                 await dispatch(renderVideogames(1));
                 
@@ -118,7 +109,6 @@ function Create({ genres, platforms, maxApiPage }) {
                     message: data,
                     type: "possitive"
                 });
-                
                 setTimeout(() => setNotification({ state: false }), 5000);
             }
         }
@@ -129,14 +119,15 @@ function Create({ genres, platforms, maxApiPage }) {
                 message: error.message,
                 type: "error"
             });
-            
             setTimeout(() => setNotification({ state: false }), 5000);
 
             throw Error(error.message);
         }
     }
 
+    //delete false desclicks in checkbox
     useEffect(() => {
+        if(input.chan)
         for(let key in input.platforms){
             if(!input.platforms[key]) delete input.platforms[key];
         }

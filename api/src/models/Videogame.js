@@ -30,8 +30,9 @@ module.exports = (sequelize) => {
     },
     released: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
-        isDate: true //format: "2000-01-29" / mas de dos digitos "20+"
+        isDate: true //format: "2000-01-29" / more than two digits "20+"
       }
     },
     rating: {
@@ -51,5 +52,5 @@ module.exports = (sequelize) => {
       defaultValue: 'BD'
     }
   },
-  {timestamps: false});
+  { timestamps: false });
 };

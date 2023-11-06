@@ -17,7 +17,7 @@ mainRouter.use('/videogames', videogamesRouter);
 //genres route
 mainRouter.use('/genres', genresRouter);
 
-//info route
+//info platforms route
 mainRouter.use('/platforms', platformsRouter);
 
 module.exports = mainRouter;
