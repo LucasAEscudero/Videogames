@@ -28,6 +28,7 @@ function Create({ maxApiPage }) {
         released: '',
         rating: '',
         genres: {},
+        tags: {},
         detectChanges: 0
     });
     const [errors, setErrors] = useState({});
@@ -96,7 +97,8 @@ function Create({ maxApiPage }) {
             input.platforms,
             input.released,
             input.rating,
-            input.genres
+            input.genres,
+            input.tags
         );
     
         try{
@@ -141,11 +143,15 @@ function Create({ maxApiPage }) {
             throw Error(error.message);
         }
     }
-
+    
     //delete false desclicks in checkbox
     useEffect(() => {      
         for(let key in input.genres){
             if(!input.genres[key]) delete input.genres[key];
+        }
+
+        for(let key in input.tags){
+            if(!input.tags[key]) delete input.tags[key];
         }
 
         setErrors(validations(input));
@@ -239,6 +245,16 @@ function Create({ maxApiPage }) {
                 <CheckboxList
                     name="genres" 
                     array={genres} 
+                    handleChange={handlerCheckbox}
+                    input={input}
+                    errors={errors}
+                />
+
+                <CheckboxList
+                    name="tags" 
+                    array={['First-Person', 'FPS', 'Online Co-Op', 'Tactical', 'stats', 'PvP', 'Realistic',
+                    'Comedy', 'Singleplayer', 'Steam Achievements', 'Multiplayer', 'Open World', 'vr mod', 'Others'
+                ]} 
                     handleChange={handlerCheckbox}
                     input={input}
                     errors={errors}

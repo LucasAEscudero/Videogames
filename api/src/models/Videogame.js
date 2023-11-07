@@ -47,6 +47,10 @@ module.exports = (sequelize) => {
       type: DataTypes.ARRAY(DataTypes.STRING), //verificar que datos va a contener
       allowNull: false,
     },
+    tags: {
+      type: DataTypes.ARRAY(DataTypes.STRING), //verificar que datos va a contener
+      allowNull: false,
+    },
     origin: {
       type: DataTypes.STRING,
       defaultValue: 'BD'

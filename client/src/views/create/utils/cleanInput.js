@@ -6,7 +6,8 @@ const cleanInput = (setInput) => {
         platforms: [],
         released: '',
         rating: '',
-        genres: {}
+        genres: {},
+        tags: {}
     });
 }
 
