@@ -35,6 +35,10 @@
     box-shadow: 0 0 15px #595fd5;
 }
 
+.select > p > span{
+    color: #9B9BA1;
+}
+
 /* .notification{
     display: flex;
     justify-content: center;

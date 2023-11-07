@@ -56,7 +56,7 @@ function Create({ maxApiPage }) {
         if(
             !input[event.target.name].find(date => {
                 return date === event.target.value;
-            })
+            }) && event.target.value
         ){
             setInput({
                 ...input,
@@ -194,11 +194,11 @@ function Create({ maxApiPage }) {
                     <label>Platforms: </label>
                     <Options 
                         name='platforms'
-                        values={platforms}
+                        values={['', ...platforms]}
                         onChange={handlerSelect}
                         input={input.platforms}
                     />
-                    <p style={{color: '#9B9BA1'}}> Selected: {
+                    <p><span>Selected:</span> {
                             input.platforms?.map((data, i) => {
                                 if(input.platforms.length - 1 === i) return data;
                                 return `${data}, `;

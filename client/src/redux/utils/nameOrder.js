@@ -1,5 +1,5 @@
 const nameOrder = (state, order) => {
-    if(order === 'Ascendent'){
+    if(order === 'A-Z'){
         return {
             ...state,
             allVideogames: [...state.allVideogames].sort((a, b) => {

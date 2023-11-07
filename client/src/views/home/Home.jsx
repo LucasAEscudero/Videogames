@@ -40,16 +40,26 @@ function Home({ page, setPage, handlerPages }) {
     const resetFilters = () => {        
         dispatch(reset());
         dispatch(renderVideogames(1));
+        setOptions({
+            genres: "",
+            origin: "API+BD",
+            name: "",
+            rating: "",
+            change: "",
+            cChanges: 0
+        });
     }
 
     //options
     const handlerOptions = (event) => {
-        setOptions({
-          ...options,
-          [event.target.name]: event.target.value,
-          change: event.target.name,
-          cChanges: options.cChanges + 1
-        });
+        if(event.target.value){
+            setOptions({
+              ...options,
+              [event.target.name]: event.target.value,
+              change: event.target.name,
+              cChanges: options.cChanges + 1
+            });
+        }
     }
 
     useEffect(() => {
@@ -90,7 +100,7 @@ function Home({ page, setPage, handlerPages }) {
                     <Options 
                         key="genres"
                         name="genres" 
-                        values={genres} 
+                        values={['', ...genres]} 
                         onChange={handlerOptions}
                     />
                     <Options 
@@ -106,13 +116,13 @@ function Home({ page, setPage, handlerPages }) {
                     <Options 
                         key="name"
                         name="name" 
-                        values={['Ascendent', 'Descendent']} 
+                        values={['', 'A-Z', 'Z-A']} 
                         onChange={handlerOptions}
                     />
                     <Options 
                         key="rating"
                         name="rating" 
-                        values={['Minor', 'Major']} 
+                        values={['', 'Minor', 'Major']} 
                         onChange={handlerOptions}
                     />
                 </div>
