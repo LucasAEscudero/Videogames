@@ -8,7 +8,7 @@ function Landing() {
     return(
         <div className={styles.landing}>
             <img className={styles.wallpaper} src={wallpaper} alt="wallpaper" />
-            <Link to='/home' className={styles.enter}><button>Enter</button></Link>
+            <Link to='/home' className={styles.enter}><button>Start</button></Link>
         </div>
     )
 }

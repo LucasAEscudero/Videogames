@@ -62,9 +62,7 @@ function Create({ maxApiPage }) {
                 ...input,
                 [event.target.name]: [...input[event.target.name], event.target.value]
             })
-        }
-
-        
+        }   
     }
 
     const deleteLastOption = (event) => {
