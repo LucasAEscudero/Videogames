@@ -117,7 +117,7 @@ function Home({ page, setPage, handlerPages }) {
                     />
                 </div>
 
-                <button onClick={resetFilters}>Reset</button>
+                <button onClick={resetFilters}>Reset filters</button>
             </div>
             
             <div className={styles.videogames}>

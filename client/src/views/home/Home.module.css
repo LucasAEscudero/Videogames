@@ -25,10 +25,8 @@
     border-radius: 25px;
     margin: 5px;
     padding: 5px;
-    width: 65px;
     background-color: hsla(0,0%,100%,.1);
     border: 1px solid hsla(0,0%,100%,.1);
-    /* margin-top: 0; */
 }
 
 .options > button:hover{
@@ -38,6 +36,7 @@
 .videogames{
     display: grid;
     grid-template-columns: repeat(3, 350px);
+    grid-template-rows: repeat(5, 1fr);
     justify-content: space-around;
     align-items: start;
     justify-items: center;

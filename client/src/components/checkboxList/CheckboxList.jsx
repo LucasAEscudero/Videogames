@@ -18,7 +18,7 @@ function CheckboxList({ name, array, handleChange, input, errors }) {
             }
             </div>
             { errors[name] != '' && <p className={styles.errors}>{errors[name]}</p> }
-            <hr style={{ borderStyle: "none" }}/>
+            <hr style={{ borderStle: "none" }}/>
         </div>
     )
 }

@@ -28,6 +28,11 @@
 .select > button{
     background-color: hsla(0,0%,100%,.1);
     margin-bottom: 0;
+    padding: 6px;
+}
+
+.select > button:hover{
+    box-shadow: 0 0 15px #595fd5;
 }
 
 /* .notification{
