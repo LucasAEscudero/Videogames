@@ -19,7 +19,7 @@ import cleanInput from './utils/cleanInput';
 import styles from './Create.module.css';
 
 
-function Create({ maxApiPage }) {
+function Create({ maxApiPage }){
     const [input, setInput] = useState({
         name: '',
         image: '',
@@ -43,7 +43,6 @@ function Create({ maxApiPage }) {
     const dispatch = useDispatch();
     const isLoading = useSelector(state => state.isLoading);
     const genres = useSelector(state => state.allGenres);
-    const platforms = useSelector(state => state.allPlatforms);
 
     //inputs handler
     const handlerChange = (event) => {
@@ -57,7 +56,7 @@ function Create({ maxApiPage }) {
         if(
             !input[event.target.name].find(date => {
                 return date === event.target.value;
-            }) && event.target.value
+            }) && event.target.value !== 'Platforms' 
         ){
             setInput({
                 ...input,
@@ -167,6 +166,7 @@ function Create({ maxApiPage }) {
             <form>
                 {/* name input */}
                 <Inputs
+                    key='name'
                     name='name'
                     type='text'
                     input={input}
@@ -177,6 +177,7 @@ function Create({ maxApiPage }) {
 
                 {/* image input */}
                 <Inputs
+                    key='image'
                     name='image'
                     type='text'
                     input={input}
@@ -187,6 +188,7 @@ function Create({ maxApiPage }) {
 
                 {/* description input */}
                 <Inputs
+                    key='description'
                     name='description'
                     type='textarea'
                     input={input}
@@ -197,10 +199,15 @@ function Create({ maxApiPage }) {
 
                 {/* platforms select */}
                 <div className={styles.select}>
-                    <label>Platforms: </label>
+                    <label htmlFor='platformsLabel'>Platforms: </label>
                     <Options 
+                        key='platforms'
                         name='platforms'
-                        values={['', ...platforms]}
+                        values={[
+                            'Platforms', 'PC', 'PlayStation 5', 'PlayStation 4', 'PlayStation 3',
+                            'PlayStation 2', 'PlayStation', 'Xbox One', 'Xbox Series S/X', 'Xbox 360',
+                            'Xbox', 'Nintendo Switch', 'iOS', 'Android', 'macOS', 'Linux', 'Others'
+                        ]}
                         onChange={handlerSelect}
                         input={input.platforms}
                     />
@@ -220,6 +227,7 @@ function Create({ maxApiPage }) {
 
                 {/* released input */}
                 <Inputs
+                    key='released'
                     name='released'
                     type='date'
                     input={input}
@@ -232,6 +240,7 @@ function Create({ maxApiPage }) {
 
                 {/* rating input */}
                 <Inputs
+                    key='rating'
                     name='rating'
                     type='number'
                     step={0.1}
@@ -243,6 +252,7 @@ function Create({ maxApiPage }) {
 
                 {/* genres checkbox */}
                 <CheckboxList
+                    key='genresCreator'
                     name="genres" 
                     array={genres} 
                     handleChange={handlerCheckbox}
@@ -251,10 +261,13 @@ function Create({ maxApiPage }) {
                 />
 
                 <CheckboxList
+                    key='tagsCreator'
                     name="tags" 
-                    array={['First-Person', 'FPS', 'Online Co-Op', 'Tactical', 'stats', 'PvP', 'Realistic',
-                    'Comedy', 'Singleplayer', 'Steam Achievements', 'Multiplayer', 'Open World', 'vr mod', 'Others'
-                ]} 
+                    array={[
+                        'First-Person', 'FPS', 'Online Co-Op', 'Tactical', 'stats', 'PvP', 'Realistic',
+                        'Comedy', 'Singleplayer', 'Steam Achievements', 'Multiplayer', 'Open World', 'vr mod', 
+                        'Others'
+                    ]} 
                     handleChange={handlerCheckbox}
                     input={input}
                     errors={errors}
@@ -263,10 +276,11 @@ function Create({ maxApiPage }) {
                 <button
                     type="submit"
                     disabled={
-                        !input.name || !input.image || !input.description || !input.platforms
-                        || !input.released || !input.rating || !input.genres || errors.name 
-                        || errors.image || errors.description || errors.platforms || 
-                        errors.released || errors.rating || errors.genres
+                        !input.name || !input.image || !input.description || !input.platforms.length
+                        || !input.released || !input.rating || !Object.keys(input.genres).length
+                        || !Object.keys(input.tags).length || errors.name || errors.image 
+                        || errors.description || errors.platforms || errors.released || errors.rating 
+                        || errors.genres || errors.tags
                     }
                     onClick={handleSubmit}
                 >

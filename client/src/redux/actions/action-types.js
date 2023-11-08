@@ -1,7 +1,6 @@
 //get and render
 export const GET_VIDEOGAMES = 'GET_VIDEOGAMES';
 export const GET_GENRES = 'GET_GENRES';
-export const GET_PLATFORMS = 'GET_PLATFORMS';
 export const GET_DETAIL = 'GET_DETAIL';
 
 //filter / order

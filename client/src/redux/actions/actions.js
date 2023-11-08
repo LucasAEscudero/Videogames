@@ -1,7 +1,6 @@
 import { 
     GET_VIDEOGAMES,
     GET_GENRES,
-    GET_PLATFORMS,
     RENDER_VIDEOGAMES,
     GET_DETAIL, 
     NAME_VIDEOGAMES, 
@@ -38,22 +37,6 @@ export const getGenres = () => {
 
             return dispatch({
                 type: GET_GENRES,
-                payload: data
-            })
-        }
-        catch(error){
-            throw Error(error.message)
-        }
-    }
-}
-
-export const getPlatforms = () => {
-    return async (dispatch) => {
-        try{
-            const { data } = await axios(`http://localhost:3001/platforms`);
-
-            return dispatch({
-                type: GET_PLATFORMS,
                 payload: data
             })
         }

@@ -7,11 +7,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { 
   getVideogames,
   getGenres,
-  getPlatforms,
-  genresFilter, 
-  nameOrder, 
-  originFilter, 
-  ratingOrder, 
   renderVideogames,
   loading
 } from './redux/actions/actions'
@@ -33,14 +28,6 @@ function App() {
   //hooks
   const [page, setPage] = useState(1)
   const maxApiPage = 5;
-  // const [options, setOptions] = useState({
-  //   genres: "",
-  //   origin: "API+BD",
-  //   name: "",
-  //   rating: "",
-  //   change: "",
-  //   cChanges: 0
-  // });
   
   //redux
   const dispatch = useDispatch();
@@ -53,7 +40,6 @@ function App() {
       await dispatch(getVideogames(maxApiPage));
       await dispatch(renderVideogames(page));
       await dispatch(getGenres());
-      await dispatch(getPlatforms());
       dispatch(loading());
     })();
   }, [])
@@ -68,42 +54,6 @@ function App() {
     dispatch(renderVideogames(page)); 
   }, [page])
 
-  //handler source videogames (API / BD) - home
-  // const handlerOptions = (event) => {
-  //   setOptions({
-  //     ...options,
-  //     [event.target.name]: event.target.value,
-  //     change: event.target.name,
-  //     cChanges: options.cChanges + 1
-  //   });
-  // }
-
-  // useEffect(() => {
-  //   switch(options.change){
-  //     case "genres": 
-  //       dispatch(genresFilter(options.genres));
-  //       dispatch(renderVideogames(1));
-  //       setPage(1);
-  //       break;
-  //     case "origin":
-  //       dispatch(originFilter(options.origin));
-  //       dispatch(renderVideogames(1));
-  //       setPage(1);
-  //       break;
-  //     case "name": 
-  //       dispatch(nameOrder(options.name));
-  //       dispatch(renderVideogames(1));
-  //       setPage(1);
-  //       break;
-  //     case "rating": 
-  //       dispatch(ratingOrder(options.rating));
-  //       dispatch(renderVideogames(1));
-  //       setPage(1);
-  //       break;
-  //   }
-
-  // }, [options.cChanges]);
-
   return(
     <div>
       { 
@@ -114,11 +64,11 @@ function App() {
         <Route path='/' element={<Landing />}/>
 
         <Route path='/home' element={
-        <Home 
-          page={page}
-          setPage={setPage}
-          handlerPages={handlerPages} 
-        />
+          <Home 
+            page={page}
+            setPage={setPage}
+            handlerPages={handlerPages} 
+          />
         }/>
         <Route path='/detail/:id' element={<Detail />}/>
         <Route path='/create' element={<Create maxApiPage={maxApiPage} />}/>

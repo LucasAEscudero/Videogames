@@ -39,6 +39,7 @@ function Home({ page, setPage, handlerPages }) {
     //handler reset button
     const resetFilters = () => {        
         dispatch(reset());
+        setPage(1);
         dispatch(renderVideogames(1));
         setOptions({
             genres: "",
@@ -100,7 +101,7 @@ function Home({ page, setPage, handlerPages }) {
                     <Options 
                         key="genres"
                         name="genres" 
-                        values={['', ...genres]} 
+                        values={['Genres', ...genres]} 
                         onChange={handlerOptions}
                     />
                     <Options 
@@ -116,13 +117,13 @@ function Home({ page, setPage, handlerPages }) {
                     <Options 
                         key="name"
                         name="name" 
-                        values={['', 'A-Z', 'Z-A']} 
+                        values={['Name', 'A-Z', 'Z-A']} 
                         onChange={handlerOptions}
                     />
                     <Options 
                         key="rating"
                         name="rating" 
-                        values={['', 'Minor', 'Major']} 
+                        values={['Rating', 'Minor', 'Major']} 
                         onChange={handlerOptions}
                     />
                 </div>

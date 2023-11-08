@@ -2,7 +2,6 @@
 import { 
     GET_VIDEOGAMES,
     GET_GENRES,
-    GET_PLATFORMS,
     RENDER_VIDEOGAMES, 
     NAME_VIDEOGAMES, 
     GENRES_VIDEOGAMES,
@@ -38,8 +37,7 @@ const initialState = {
     isLoading: false,
 
     //aux info
-    allGenres: [],
-    allPlatforms: []
+    allGenres: []
 };
 
 function reducer(state = initialState, action) {
@@ -61,12 +59,6 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 allGenres: [...action.payload]
-            };
-
-        case GET_PLATFORMS:
-            return {
-                ...state,
-                allPlatforms: [...action.payload]
             };
 
         //render 15 videogames
@@ -96,7 +88,7 @@ function reducer(state = initialState, action) {
 
         case ORIGIN_VIDEOGAMES: return originVideogames(state, action.payload);
             
-            //load videogames with the name input
+        //load videogames with the name input
         case NAME_VIDEOGAMES: return nameVideogames(state, action.payload);
 
         //order videogames by name

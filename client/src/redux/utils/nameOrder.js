@@ -9,7 +9,7 @@ const nameOrder = (state, order) => {
             })
         }
     }
-    else { 
+    else if(order === 'Z-A'){ 
         return {
             ...state,
             allVideogames: [...state.allVideogames].sort((a, b) => {

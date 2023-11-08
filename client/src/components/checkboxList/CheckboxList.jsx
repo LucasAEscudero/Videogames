@@ -9,11 +9,17 @@ function CheckboxList({ name, array, handleChange, input, errors }) {
 
     return(
         <div className={styles.checkbox}>
-            <label>{`${firstLetter}${restWord}`}: </label>
+            <label htmlFor={`${name}Label`}>{`${firstLetter}${restWord}`}: </label>
             <div className={styles.list}>
             {
                 array?.map(data => {
-                    return <BoxList type={name} name={data} handleChange={handleChange} input={input}/>
+                    return <BoxList 
+                        key={data} 
+                        type={name} 
+                        name={data} 
+                        handleChange={handleChange} 
+                        input={input}
+                    />
                 })
             }
             </div>
