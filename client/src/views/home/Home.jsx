@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 //redux
 import { useSelector, useDispatch } from 'react-redux'
-import { renderVideogames, reset, genresFilter, originFilter, nameOrder, ratingOrder } from '../../redux/actions/actions'
+import { renderVideogames, reset, genresFilter, originFilter, nameOrder, ratingOrder, tagsFilter } from '../../redux/actions/actions'
 
 //components
 import Videogame from '../../components/videogame/Videogame';
@@ -44,6 +44,7 @@ function Home({ page, setPage, handlerPages }) {
         setOptions({
             genres: "",
             origin: "API+BD",
+            tags: "",
             name: "",
             rating: "",
             change: "",
@@ -72,6 +73,12 @@ function Home({ page, setPage, handlerPages }) {
             break;
           case "origin":
             dispatch(originFilter(options.origin));
+            dispatch(renderVideogames(1));
+            setPage(1);
+            break;
+            
+            case "tags":
+            dispatch(tagsFilter(options.tags));
             dispatch(renderVideogames(1));
             setPage(1);
             break;
@@ -108,6 +115,14 @@ function Home({ page, setPage, handlerPages }) {
                         key="origin"
                         name="origin" 
                         values={['API + BD', 'API', 'BD']} 
+                        onChange={handlerOptions}
+                    />
+                    <Options 
+                        key="tags"
+                        name="tags" 
+                        values={['Tags', 'First-Person', 'FPS', 'Online Co-Op', 'Tactical', 'stats', 'PvP', 'Realistic',
+                        'Comedy', 'Singleplayer', 'Steam Achievements', 'Multiplayer', 'Open World', 'vr mod', 
+                        'Others', ]} 
                         onChange={handlerOptions}
                     />
                 </div>

@@ -11,7 +11,8 @@ import {
     RESET,
     GET_DETAIL,
     CLEAN_DETAIL,
-    IS_LOADING
+    IS_LOADING,
+    TAGS_FILTER
 } from '../actions/action-types';
 
 //utils
@@ -87,6 +88,17 @@ function reducer(state = initialState, action) {
             };
 
         case ORIGIN_VIDEOGAMES: return originVideogames(state, action.payload);
+
+        case TAGS_FILTER: 
+            return {
+                ...state,
+                allVideogames: [...state.copyAllVideogames].filter(game => {
+                    return game.tags?.find(tag => tag === action.payload);
+                }),
+                copyAllVideogames: [...state.copyAllVideogames].filter(game => {
+                    return game.tags?.find(tag => tag === action.payload);
+                })
+            };
             
         //load videogames with the name input
         case NAME_VIDEOGAMES: return nameVideogames(state, action.payload);
