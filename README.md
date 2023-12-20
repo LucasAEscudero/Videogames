@@ -15,11 +15,11 @@ Aplicación web que renderiza videojuegos en tarjetas de la API de RAGW (API de 
 
 ### Secciones
 #### Landing Page
+![landing page](https://github.com/LucasAEscudero/Videogames_Proyect/blob/main/Readme%20files/Landing%20Page.png)
 
 #### Home
-
-#### Home + Busqueda
+![home](https://github.com/LucasAEscudero/Videogames_Proyect/blob/main/Readme%20files/Home.png)
 
 #### Form (formulario de creacion)
-
+![form](https://github.com/LucasAEscudero/Videogames_Proyect/blob/main/Readme%20files/Create%20Form.png)
   
