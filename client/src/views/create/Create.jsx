@@ -101,7 +101,7 @@ function Create({ maxApiPage }){
         );
     
         try{
-            const { data } = await axios.post(`http://localhost:3001/videogames`, toPost);
+            const { data } = await axios.post(`/videogames`, toPost);
             
             if(
                 data === "This game already exists (the name has already been used)"

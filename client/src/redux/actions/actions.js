@@ -18,7 +18,7 @@ import axios from 'axios';
 export const getVideogames = (maxPage) => {
     return async (dispatch) => {
         try{
-            const { data } = await axios(`http://localhost:3001/videogames?maxPage=${maxPage}`);
+            const { data } = await axios(`/videogames?maxPage=${maxPage}`);
 
             return dispatch({
                 type: GET_VIDEOGAMES,
@@ -34,10 +34,26 @@ export const getVideogames = (maxPage) => {
 export const getGenres = () => {
     return async (dispatch) => {
         try{
-            const { data } = await axios(`http://localhost:3001/genres`);
+            const { data } = await axios(`/genres`);
 
             return dispatch({
                 type: GET_GENRES,
+                payload: data
+            })
+        }
+        catch(error){
+            throw Error(error.message)
+        }
+    }
+}
+
+export const getPlatforms = () => {
+    return async (dispatch) => {
+        try{
+            const { data } = await axios(`/platforms`);
+
+            return dispatch({
+                type: GET_PLATFORMS,
                 payload: data
             })
         }
@@ -59,7 +75,7 @@ export const renderVideogames = (page) => {
 export const getDetail = (id) => {
     return async (dispatch) => {
         try{
-            const { data } = await axios(`http://localhost:3001/videogames/${id}`);
+            const { data } = await axios(`/videogames/${id}`);
 
             return dispatch({
                 type: GET_DETAIL,
@@ -75,7 +91,7 @@ export const getDetail = (id) => {
 export const searchVideogamesName = (name) => {
     return async (dispatch) => {
         try{
-            const { data } = await axios(`http://localhost:3001/videogames/name?name=${name}`);
+            const { data } = await axios(`/videogames/name?name=${name}`);
         
             return dispatch({
                 type: NAME_VIDEOGAMES,
