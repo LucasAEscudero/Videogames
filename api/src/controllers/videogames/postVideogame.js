@@ -1,7 +1,7 @@
 const { Videogame, Genres } = require('../../db');
 const { Op } = require("sequelize");
 
-const postVideogame = async (name, description, platforms, image, released, rating, genresName) => {
+const postVideogame = async (name, description, platforms, image, released, rating, genresName, tags) => {
 
     const [videogame, created] = await Videogame.findOrCreate({
         where: {
@@ -13,7 +13,8 @@ const postVideogame = async (name, description, platforms, image, released, rati
             released: released,
             image: image,
             platforms: platforms,
-            genresName: genresName
+            genresName: genresName,
+            tags: tags
         }
     })
 

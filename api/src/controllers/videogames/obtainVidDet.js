@@ -34,6 +34,7 @@ const obtVideogameDetails = async (id) => {
             description: data.description,
             platforms: [...data.platforms],
             genres: [...data.genresName],
+            tags: [...data.tags],
             origin: 'API'
         }
 

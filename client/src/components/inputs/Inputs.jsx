@@ -7,10 +7,11 @@ function Inputs({ name, type, input, handleChange, placeholder, errors, labelAux
 
     return(
         <div className={styles.input}>
-            <label>{`${firstLetter}${restWord}`}: </label>
+            <label htmlFor={`${name}Label`}>{`${firstLetter}${restWord}`}: </label>
             {/* text */}
             {   type === 'text' &&
-                <input 
+                <input
+                    key={name} 
                     type={type} 
                     name={name}
                     value={input[name]}
@@ -22,6 +23,7 @@ function Inputs({ name, type, input, handleChange, placeholder, errors, labelAux
             {
                 type === 'textarea' &&
                 <textarea 
+                    key={name} 
                     name={name}  
                     cols="50" 
                     rows="10"   
@@ -33,7 +35,8 @@ function Inputs({ name, type, input, handleChange, placeholder, errors, labelAux
             {/* dates */}
             {
                 type === 'date' &&
-                <input 
+                <input
+                    key={name} 
                     type={type}
                     name={name}
                     value={input[name]}
@@ -46,6 +49,7 @@ function Inputs({ name, type, input, handleChange, placeholder, errors, labelAux
             {
                 type === 'number' &&
                 <input
+                    key={name} 
                     type={type}
                     name={name}
                     step={step}

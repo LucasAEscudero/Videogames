@@ -1,7 +1,6 @@
 import { 
     GET_VIDEOGAMES,
     GET_GENRES,
-    GET_PLATFORMS,
     RENDER_VIDEOGAMES,
     GET_DETAIL, 
     NAME_VIDEOGAMES, 
@@ -11,7 +10,8 @@ import {
     RATING_ORDER,
     RESET,
     CLEAN_DETAIL,
-    IS_LOADING
+    IS_LOADING,
+    TAGS_FILTER
 } from './action-types';
 import axios from 'axios';
 
@@ -160,6 +160,15 @@ export const loading = () => {
     return (dispatch) => {
         return dispatch({
             type: IS_LOADING
+        })
+    }
+}
+
+export const tagsFilter = (tag) => {
+    return (dispatch) => {
+        return dispatch({
+            type: TAGS_FILTER,
+            payload: tag
         })
     }
 }

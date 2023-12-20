@@ -36,7 +36,6 @@
 .videogames{
     display: grid;
     grid-template-columns: repeat(3, 350px);
-    grid-template-rows: repeat(5, 1fr);
     justify-content: space-around;
     align-items: start;
     justify-items: center;

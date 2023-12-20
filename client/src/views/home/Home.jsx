@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 //redux
 import { useSelector, useDispatch } from 'react-redux'
-import { renderVideogames, reset, genresFilter, originFilter, nameOrder, ratingOrder } from '../../redux/actions/actions'
+import { renderVideogames, reset, genresFilter, originFilter, nameOrder, ratingOrder, tagsFilter } from '../../redux/actions/actions'
 
 //components
 import Videogame from '../../components/videogame/Videogame';
@@ -39,10 +39,12 @@ function Home({ page, setPage, handlerPages }) {
     //handler reset button
     const resetFilters = () => {        
         dispatch(reset());
+        setPage(1);
         dispatch(renderVideogames(1));
         setOptions({
             genres: "",
             origin: "API+BD",
+            tags: "",
             name: "",
             rating: "",
             change: "",
@@ -74,6 +76,12 @@ function Home({ page, setPage, handlerPages }) {
             dispatch(renderVideogames(1));
             setPage(1);
             break;
+            
+            case "tags":
+            dispatch(tagsFilter(options.tags));
+            dispatch(renderVideogames(1));
+            setPage(1);
+            break;
           case "name": 
             dispatch(nameOrder(options.name));
             dispatch(renderVideogames(1));
@@ -100,13 +108,21 @@ function Home({ page, setPage, handlerPages }) {
                     <Options 
                         key="genres"
                         name="genres" 
-                        values={['', ...genres]} 
+                        values={['Genres', ...genres]} 
                         onChange={handlerOptions}
                     />
                     <Options 
                         key="origin"
                         name="origin" 
                         values={['API + BD', 'API', 'BD']} 
+                        onChange={handlerOptions}
+                    />
+                    <Options 
+                        key="tags"
+                        name="tags" 
+                        values={['Tags', 'First-Person', 'FPS', 'Online Co-Op', 'Tactical', 'stats', 'PvP', 'Realistic',
+                        'Comedy', 'Singleplayer', 'Steam Achievements', 'Multiplayer', 'Open World', 'vr mod', 
+                        'Others', ]} 
                         onChange={handlerOptions}
                     />
                 </div>
@@ -116,13 +132,13 @@ function Home({ page, setPage, handlerPages }) {
                     <Options 
                         key="name"
                         name="name" 
-                        values={['', 'A-Z', 'Z-A']} 
+                        values={['Name', 'A-Z', 'Z-A']} 
                         onChange={handlerOptions}
                     />
                     <Options 
                         key="rating"
                         name="rating" 
-                        values={['', 'Minor', 'Major']} 
+                        values={['Rating', 'Minor', 'Major']} 
                         onChange={handlerOptions}
                     />
                 </div>

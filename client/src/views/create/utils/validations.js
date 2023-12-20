@@ -75,12 +75,27 @@ function validations(input) {
         if(input.rating === '') errors.rating = '*The field cannot be empty';
     }
 
+    if(Object.keys(input.tags).length){
+        if(Object.keys(input.tags).length < 1) 
+        errors.tags = '*One tag must be selected as a minimum';
+        
+        //before validations
+        if(input.name === '') errors.name = '*The field cannot be empty';
+        if(input.image === '') errors.image = '*The field cannot be empty';
+        if(input.description === '') errors.description = '*The field cannot be empty';
+        if(!input.platforms.length) errors.platforms = '*One platform must be selected as a minimum';
+        if(input.released === '') errors.released= '*The field cannot be empty';
+        if(input.rating === '') errors.rating = '*The field cannot be empty';
+        if(Object.keys(input.genres).length < 1) 
+        errors.genres = '*One gender must be selected as a minimum';
+    }
+
     //case not genres
     if(
-        input.name && input.image && input.description && Object.keys(input.platforms).length 
-        && input.released && input.rating
+        input.name && input.image && input.description && input.platforms.length 
+        && input.released && input.rating && Object.keys(input.genres).length 
     ){
-        if(!Object.keys(input.genres).length) errors.genres = '*The field cannot be empty';
+        if(!Object.keys(input.tags).length) errors.tags = '*One tag must be selected as a minimum';
     }
 
     return errors;
